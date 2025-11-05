@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
 class TenantsController < ApplicationController
-  before_action :set_tenant, only: %i[ show edit update destroy ]
-
-  def index
-    @tenants = Tenant.all
-  end
+  before_action :set_tenant, only: %i[ show edit update ]
 
   def show
-  end
-
-  def new
-    @tenant = Tenant.new
   end
 
   def edit
@@ -26,15 +18,6 @@ class TenantsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tenant.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def destroy
-    @tenant.archive
-
-    respond_to do |format|
-      format.html { redirect_to tenants_path, notice: "Tenant was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
     end
   end
 

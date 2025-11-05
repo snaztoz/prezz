@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :tenants, except: %i[ create ]
+  resources :tenants, only: %i[ show edit update ], path: "t" do
+    resources :passwords, param: :token
+
+    resource :session
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -10,5 +14,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "tenants#show"
 end
