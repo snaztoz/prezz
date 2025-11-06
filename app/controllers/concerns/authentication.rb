@@ -14,6 +14,12 @@ module Authentication
     end
   end
 
+  protected
+
+  def current_user
+    Current.user
+  end
+
   private
 
   def authenticated?

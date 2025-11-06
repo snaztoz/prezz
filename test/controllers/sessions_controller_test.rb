@@ -28,7 +28,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy" do
-    sign_in_as(User.take)
+    sign_in_as(@user)
 
     delete tenant_session_path(@tenant)
 

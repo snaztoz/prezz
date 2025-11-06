@@ -5,7 +5,9 @@ class SessionsController < ApplicationController
 
   before_action :set_tenant
 
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_path, alert: "Try again later." }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> {
+    redirect_to new_session_path, alert: "Try again later."
+  }
 
   def new
   end
@@ -20,6 +22,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    authorize @tenant, :access?, policy_class: TenantPolicy
+
     terminate_session
     redirect_to new_tenant_session_path(@tenant), status: :see_other
   end
