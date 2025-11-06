@@ -2,6 +2,8 @@
 
 Rails.application.routes.draw do
   resources :tenants, only: %i[ show edit update ], path: "t" do
+    resources :groups
+
     resources :passwords, param: :token
 
     resource :session

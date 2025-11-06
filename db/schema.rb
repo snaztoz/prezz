@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_05_110929) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_06_083851) do
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tenant_id", "name"], name: "index_groups_on_tenant_id_and_name", unique: true
+    t.index ["tenant_id"], name: "index_groups_on_tenant_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -44,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_05_110929) do
     t.index ["tenant_id"], name: "index_users_on_tenant_id"
   end
 
+  add_foreign_key "groups", "tenants"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "tenants"
 end
