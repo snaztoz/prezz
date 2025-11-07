@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TenantPolicy < ApplicationPolicy
   attr_reader :user, :tenant
 

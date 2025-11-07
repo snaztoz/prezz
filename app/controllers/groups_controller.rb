@@ -16,16 +16,19 @@ class GroupsController < ApplicationController
 
   def new
     authorize @tenant, :access?, policy_class: TenantPolicy
+    authorize Group
 
     @group = @tenant.groups.build
   end
 
   def edit
     authorize @tenant, :access?, policy_class: TenantPolicy
+    authorize @group
   end
 
   def create
     authorize @tenant, :access?, policy_class: TenantPolicy
+    authorize Group
 
     @group = @tenant.groups.build(group_params)
 
@@ -42,6 +45,7 @@ class GroupsController < ApplicationController
 
   def update
     authorize @tenant, :access?, policy_class: TenantPolicy
+    authorize @group
 
     respond_to do |format|
       if @group.update(group_params)
@@ -56,6 +60,7 @@ class GroupsController < ApplicationController
 
   def destroy
     authorize @tenant, :access?, policy_class: TenantPolicy
+    authorize @group
 
     @group.destroy!
 

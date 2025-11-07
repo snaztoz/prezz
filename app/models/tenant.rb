@@ -10,4 +10,8 @@ class Tenant < ApplicationRecord
   validates :time_zone, presence: true, inclusion: { in: %w[Asia/Jakarta] }
 
   after_commit TenantCreationCallback.new, on: :create
+
+  def admin_group
+    groups.find_by(name: GroupConstant::ADMIN_GROUP_NAME)
+  end
 end

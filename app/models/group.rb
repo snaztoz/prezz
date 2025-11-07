@@ -6,4 +6,8 @@ class Group < ApplicationRecord
   has_many :users, through: :user_groups
 
   validates :name, uniqueness: { scope: :tenant }
+
+  def admin_group?
+    self.name == GroupConstant::ADMIN_GROUP_NAME
+  end
 end

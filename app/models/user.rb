@@ -18,4 +18,12 @@ class User < ApplicationRecord
   validates :employee_number, uniqueness: { scope: :tenant }, length: { maximum: 15 }
   validates :email_address, uniqueness: { scope: :tenant }
   validates :phone_number, uniqueness: { scope: :tenant }, length: { maximum: 15 }
+
+  def admin?
+    self.groups.exists? name: GroupConstant::ADMIN_GROUP_NAME
+  end
+
+  def leader_of?(group)
+    group.user_groups.exists? user: self, role: "leader"
+  end
 end
