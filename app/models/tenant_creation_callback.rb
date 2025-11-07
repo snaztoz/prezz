@@ -5,7 +5,8 @@ class TenantCreationCallback
     ActiveRecord::Base.transaction do
       group = create_admin_group(tenant)
       user = create_admin(tenant)
-      user.user_groups.create!(group: group, role: "leader")
+
+      group.memberships.create!(user:, role: "leader")
     end
   end
 

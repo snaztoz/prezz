@@ -20,6 +20,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_093533) do
     t.index ["tenant_id"], name: "index_groups_on_tenant_id"
   end
 
+  create_table "memberships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "group_id", null: false
+    t.string "role", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -35,17 +46,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_093533) do
     t.string "name", null: false
     t.string "time_zone", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "user_groups", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "group_id", null: false
-    t.string "role", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["group_id"], name: "index_user_groups_on_group_id"
-    t.index ["user_id", "group_id"], name: "index_user_groups_on_user_id_and_group_id", unique: true
-    t.index ["user_id"], name: "index_user_groups_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,8 +65,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_093533) do
   end
 
   add_foreign_key "groups", "tenants"
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
-  add_foreign_key "user_groups", "groups"
-  add_foreign_key "user_groups", "users"
   add_foreign_key "users", "tenants"
 end

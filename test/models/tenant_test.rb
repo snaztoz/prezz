@@ -17,7 +17,7 @@ class TenantTest < ActiveSupport::TestCase
   end
 
   test "registering admin user into admin group after creation" do
-    assert_difference("UserGroup.count") do
+    assert_difference("Membership.count") do
       Tenant.create(name: "Test Tenant", time_zone: "Asia/Jakarta")
     end
   end

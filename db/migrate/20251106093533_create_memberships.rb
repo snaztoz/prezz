@@ -1,6 +1,6 @@
-class CreateUserGroups < ActiveRecord::Migration[8.1]
+class CreateMemberships < ActiveRecord::Migration[8.1]
   def change
-    create_table :user_groups do |t|
+    create_table :memberships do |t|
       t.string :role, null: false
 
       t.references :user, null: false, foreign_key: true
@@ -9,6 +9,6 @@ class CreateUserGroups < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :user_groups, %i[ user_id group_id ], unique: true
+    add_index :memberships, %i[ user_id group_id ], unique: true
   end
 end

@@ -7,8 +7,8 @@ class User < ApplicationRecord
   belongs_to :tenant
   has_secure_password
   has_many :sessions, dependent: :destroy
-  has_many :user_groups, dependent: :destroy
-  has_many :groups, through: :user_groups
+  has_many :memberships, dependent: :destroy
+  has_many :groups, through: :memberships
 
   normalizes :full_name, with: ->(n) { n.strip }
   normalizes :employee_number, with: ->(n) { n.strip }
@@ -20,10 +20,10 @@ class User < ApplicationRecord
   validates :phone_number, uniqueness: { scope: :tenant }, length: { maximum: 15 }
 
   def admin?
-    self.groups.exists? name: GroupConstant::ADMIN_GROUP_NAME
+    groups.exists? name: GroupConstant::ADMIN_GROUP_NAME
   end
 
   def leader_of?(group)
-    group.user_groups.exists? user: self, role: "leader"
+    memberships.exists? group:, role: "leader"
   end
 end

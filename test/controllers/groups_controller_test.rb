@@ -97,16 +97,20 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
   private
 
   def create_group_member(group)
-    member_user = @tenant.users.create do |u|
+    user = create_member_user
+
+    group.memberships.create!(user:, role: "member")
+
+    user
+  end
+
+  def create_member_user
+    @tenant.users.create! do |u|
       u.full_name = "member"
       u.employee_number = "member"
       u.email_address = "member@email.com"
       u.phone_number = "081233334444"
       u.password = "password"
     end
-
-    group.user_groups.create!(user: member_user, role: "member")
-
-    member_user
   end
 end

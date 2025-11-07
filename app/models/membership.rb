@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserGroup < ApplicationRecord
+class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :group
 
