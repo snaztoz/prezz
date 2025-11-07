@@ -5,9 +5,9 @@ class Group < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 
-  validates :name, uniqueness: { scope: :tenant }
+  validates :name, presence: true, uniqueness: { scope: :tenant }
 
   def admin_group?
-    self.name == GroupConstant::ADMIN_GROUP_NAME
+    name == GroupConstant::ADMIN_GROUP_NAME
   end
 end

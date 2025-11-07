@@ -12,6 +12,6 @@ class Tenant < ApplicationRecord
   after_commit TenantCreationCallback.new, on: :create
 
   def admin_group
-    groups.find_by(name: GroupConstant::ADMIN_GROUP_NAME)
+    groups.find_by name: GroupConstant::ADMIN_GROUP_NAME
   end
 end
