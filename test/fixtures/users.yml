@@ -8,6 +8,14 @@ one:
   password_digest: <%= password_digest %>
   tenant: one
 
+one_admin_leader:
+  full_name: One Admin
+  employee_number: one-002
+  email_address: one-admin@example.com
+  phone_number: 6281234567891
+  password_digest: <%= password_digest %>
+  tenant: one
+
 two:
   full_name: Two
   employee_number: two-001

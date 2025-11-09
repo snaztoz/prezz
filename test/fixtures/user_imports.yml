@@ -1,0 +1,7 @@
+one:
+  status: 1
+  tenant: one
+
+two:
+  status: 1
+  tenant: two

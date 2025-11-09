@@ -4,6 +4,10 @@ one:
   name: MyString
   tenant: one
 
+one_admins:
+  name: admins
+  tenant: one
+
 two:
   name: MyString
   tenant: two

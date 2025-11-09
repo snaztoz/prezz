@@ -1,0 +1,9 @@
+one:
+  group: one
+  user: one
+  role: member
+
+one_admin_leader:
+  group: one_admins
+  user: one_admin_leader
+  role: leader

@@ -1,0 +1,14 @@
+<div id="<%= dom_id user_import %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= user_import.status %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">File:</strong>
+    <%= link_to user_import.file.filename, user_import.file, class: "text-gray-700 underline hover:no-underline" if user_import.file.attached? %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Tenant:</strong>
+    <%= user_import.tenant_id %>
+  </div>
+</div>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :passwords, param: :token
 
     resource :session
+
+    resources :user_imports, except: %i[ edit update destroy ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

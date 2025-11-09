@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_09_090603) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_09_091708) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -76,6 +76,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_090603) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_imports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "imported_count"
+    t.integer "status", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tenant_id"], name: "index_user_imports_on_tenant_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
@@ -98,5 +107,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_090603) do
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "user_imports", "tenants"
   add_foreign_key "users", "tenants"
 end
