@@ -34,7 +34,6 @@ class UserImportsController < ApplicationController
         format.html { redirect_to [ @tenant, @user_import ], notice: "User import was successfully created." }
         format.json { render :show, status: :created, location: @user_import }
       else
-        puts @user_import.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user_import.errors, status: :unprocessable_entity }
       end
