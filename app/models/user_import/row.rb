@@ -7,11 +7,11 @@ class UserImport::Row
 
   def attributes
     {
-      full_name: row[0],
-      employee_number: row[1],
-      email_address: row[2],
-      phone_number: row[3],
-      password: row[3].gsub(/\D/, "")
+      full_name: row["Full Name"],
+      employee_number: row["Employee Number"],
+      email_address: row["Email Address"],
+      phone_number: row["Phone Number"],
+      password: row["Phone Number"].gsub(/\D/, "")
     }
   end
 
