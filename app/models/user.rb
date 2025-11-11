@@ -15,9 +15,10 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   normalizes :phone_number, with: ->(p) { p.gsub(/\D/, "") }
 
-  validates :employee_number, uniqueness: { scope: :tenant }, length: { maximum: 15 }
-  validates :email_address, uniqueness: { scope: :tenant }
-  validates :phone_number, uniqueness: { scope: :tenant }, length: { maximum: 15 }
+  validates :full_name, presence: true
+  validates :employee_number, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
+  validates :email_address, presence: true, uniqueness: { scope: :tenant }
+  validates :phone_number, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
 
   def admin?
     groups.exists? name: GroupConstant::ADMIN_GROUP_NAME
