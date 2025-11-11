@@ -1,0 +1,4 @@
+user_import_attachment:
+  name: file
+  record: one (UserImport)
+  blob: user_import_blob

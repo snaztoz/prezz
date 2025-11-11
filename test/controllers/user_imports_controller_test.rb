@@ -51,7 +51,17 @@ class UserImportsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to tenant_user_import_url(@tenant, UserImport.last)
   end
 
-  test "should not create for non-admin user" do
+  test "should dispatch UserImport#process job after user_import creation" do
+    assert_enqueued_with(job: UserImportJob) do
+      post tenant_user_imports_url(@tenant), params: {
+        user_import: {
+          file: file_fixture_upload("user_import.csv", "text/csv")
+        }
+      }
+    end
+  end
+
+  test "should not create user_import for non-admin user" do
     sign_in_as users(:one)
 
     post tenant_user_imports_url(@tenant), params: {
@@ -63,7 +73,7 @@ class UserImportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should not create for user from another tenant" do
+  test "should not create user_import for user from another tenant" do
     sign_in_as users(:two)
 
     post tenant_user_imports_url(@tenant), params: {
