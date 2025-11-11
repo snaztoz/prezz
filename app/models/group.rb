@@ -5,7 +5,9 @@ class Group < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 
-  validates :name, presence: true, uniqueness: { scope: :tenant }
+  normalizes :name, with: ->(n) { n.strip }
+
+  validates :name, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
 
   def admin_group?
     name == GroupConstant::ADMIN_GROUP_NAME

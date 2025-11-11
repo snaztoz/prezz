@@ -3,7 +3,9 @@
 require "test_helper"
 
 class GroupTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "strips name" do
+    group = Group.new(name: "    Group Name  ")
+
+    assert_equal "Group Name", group.name
+  end
 end

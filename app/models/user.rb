@@ -15,7 +15,7 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   normalizes :phone_number, with: ->(p) { p.gsub(/\D/, "") }
 
-  validates :full_name, presence: true
+  validates :full_name, presence: true, length: { maximum: 256 }
   validates :employee_number, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
   validates :email_address, presence: true, uniqueness: { scope: :tenant }
   validates :phone_number, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
