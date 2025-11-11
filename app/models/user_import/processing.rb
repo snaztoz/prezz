@@ -27,8 +27,14 @@ class UserImport::Processing
 
   def create_users
     user_import.csv.each do |row|
+      tenant = user_import.tenant
       attributes = UserImport::Row.new(row).attributes
-      User.create!(attributes.merge({ tenant: user_import.tenant }))
+
+      user_values = attributes.except(:group).merge({ tenant: })
+      user = User.create!(user_values)
+
+      group = Group.find_by!(tenant:, name: attributes[:group])
+      group.memberships.create!(user:, role: "member")
     end
   end
 end

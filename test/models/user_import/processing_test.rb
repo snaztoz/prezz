@@ -16,6 +16,24 @@ class UserImport::ProcessingTest < ActiveSupport::TestCase
     assert_equal 1, user_import.imported_count
   end
 
+  test "importing from CSV should also added a user inside a group" do
+    user_import = user_imports(:one)
+
+    assert_difference "Membership.count" do
+      UserImport::Processing.process(user_import)
+    end
+
+    assert User.last.memberships.exists?
+  end
+
+  test "importing from CSV with non-existing group" do
+    user_import = user_imports(:one_with_non_existing_group)
+
+    assert_no_difference "Membership.count" do
+      UserImport::Processing.process(user_import)
+    end
+  end
+
   test "import from CSV with incorrect header" do
     user_import = user_imports(:one_with_incorrect_header)
 

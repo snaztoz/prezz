@@ -12,3 +12,8 @@ user_import_missing_column_attachment:
   name: file
   record: one_with_missing_column (UserImport)
   blob: user_import_with_missing_column_blob
+
+user_import_non_existing_group:
+  name: file
+  record: one_with_non_existing_group (UserImport)
+  blob: user_import_with_non_existing_group_blob
