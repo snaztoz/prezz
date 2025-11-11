@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TenantCreationCallback
+class Tenant::CreationCallback
   def after_commit(tenant)
     ActiveRecord::Base.transaction do
       group = create_admin_group(tenant)

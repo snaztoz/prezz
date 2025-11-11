@@ -3,8 +3,6 @@
 class UserImportPolicy < ApplicationPolicy
   attr_reader :user, :group
 
-  delegate :admin?, to: :user
-
   def initialize(user, group)
     @user = user
     @group = group
@@ -25,4 +23,8 @@ class UserImportPolicy < ApplicationPolicy
   def show?
     admin?
   end
+
+  private
+
+  delegate :admin?, to: :user
 end

@@ -9,22 +9,26 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def new?
-    user.admin?
+    admin?
   end
 
   def edit?
-    (user.admin? && !group.admin_group?) || user.leader_of?(group)
+    (admin? && !group.admin_group?) || user.leader_of?(group)
   end
 
   def create?
-    user.admin?
+    admin?
   end
 
   def update?
-    (user.admin? && !group.admin_group?) || user.leader_of?(group)
+    (admin? && !group.admin_group?) || user.leader_of?(group)
   end
 
   def destroy?
-    user.admin? && !group.admin_group?
+    admin? && !group.admin_group?
   end
+
+  private
+
+  delegate :admin?, to: :user
 end
