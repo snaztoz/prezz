@@ -14,8 +14,8 @@ class UserImport < ApplicationRecord
 
   after_commit :process, on: :create
 
-  def rows
-    @rows ||= file.open { |f| CSV.parse(f.read, headers: true) }
+  def csv
+    @csv ||= file.open { |f| CSV.parse(f.read, headers: true) }
   end
 
   private

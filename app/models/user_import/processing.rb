@@ -14,7 +14,7 @@ class UserImport::Processing
 
     ActiveRecord::Base.transaction do
       create_users
-      user_import.update!(status: :success, imported_count: user_import.rows.size)
+      user_import.update!(status: :success, imported_count: user_import.csv.size)
     end
 
   rescue StandardError => error
@@ -26,7 +26,7 @@ class UserImport::Processing
   attr_reader :user_import
 
   def create_users
-    user_import.rows.each do |row|
+    user_import.csv.each do |row|
       attributes = UserImport::Row.new(row).attributes
       User.create!(attributes.merge({ tenant: user_import.tenant }))
     end
