@@ -78,7 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_091708) do
 
   create_table "user_imports", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "error"
+    t.string "error"
     t.integer "imported_count"
     t.integer "status", null: false
     t.integer "tenant_id", null: false
