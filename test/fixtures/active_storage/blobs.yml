@@ -1,1 +1,5 @@
 user_import_blob: <%= ActiveStorage::FixtureSet.blob filename: "user_import.csv", service_name: "test_fixtures" %>
+
+user_import_with_incorrect_header_blob: <%= ActiveStorage::FixtureSet.blob filename: "user_import_incorrect_header.csv", service_name: "test_fixtures" %>
+
+user_import_with_missing_column_blob: <%= ActiveStorage::FixtureSet.blob filename: "user_import_missing_column.csv", service_name: "test_fixtures" %>

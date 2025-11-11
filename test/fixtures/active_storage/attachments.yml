@@ -2,3 +2,13 @@ user_import_attachment:
   name: file
   record: one (UserImport)
   blob: user_import_blob
+
+user_import_incorrect_header_attachment:
+  name: file
+  record: one_with_incorrect_header (UserImport)
+  blob: user_import_with_incorrect_header_blob
+
+user_import_missing_column_attachment:
+  name: file
+  record: one_with_missing_column (UserImport)
+  blob: user_import_with_missing_column_blob

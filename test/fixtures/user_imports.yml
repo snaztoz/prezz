@@ -2,6 +2,14 @@ one:
   status: 1
   tenant: one
 
+one_with_incorrect_header:
+  status: 1
+  tenant: one
+
+one_with_missing_column:
+  status: 1
+  tenant: one
+
 two:
   status: 1
   tenant: two
