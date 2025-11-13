@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_09_091708) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_12_070136) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -68,6 +68,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_091708) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "shifts", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.date "effective_from", null: false
+    t.date "effective_to"
+    t.time "end_time", null: false
+    t.string "name", null: false
+    t.string "recurrence_rule", null: false
+    t.time "start_time", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tenant_id"], name: "index_shifts_on_tenant_id"
+  end
+
   create_table "tenants", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
@@ -108,6 +122,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_09_091708) do
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "shifts", "tenants"
   add_foreign_key "user_imports", "tenants"
   add_foreign_key "users", "tenants"
 end

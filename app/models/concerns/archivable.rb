@@ -7,6 +7,10 @@ module Archivable
     default_scope { where(archived_at: nil) }
   end
 
+  def archived?
+    archived_at.present?
+  end
+
   def archive
     update_attribute :archived_at, Time.now
   end

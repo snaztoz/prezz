@@ -1,0 +1,30 @@
+<div id="<%= dom_id shift %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Tenant:</strong>
+    <%= shift.tenant_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= shift.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Start time:</strong>
+    <%= shift.start_time %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">End time:</strong>
+    <%= shift.end_time %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Recurrence rule:</strong>
+    <%= shift.recurrence_rule %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Effective from:</strong>
+    <%= shift.effective_from %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Effective to:</strong>
+    <%= shift.effective_to %>
+  </div>
+</div>

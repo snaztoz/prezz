@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
     resource :session
 
+    resources :shifts
+
     resources :user_imports, except: %i[ edit update destroy ]
   end
 

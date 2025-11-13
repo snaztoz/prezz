@@ -4,6 +4,7 @@ class Tenant < ApplicationRecord
   include Archivable
 
   has_many :groups, dependent: :destroy
+  has_many :shifts, dependent: :destroy
   has_many :users, dependent: :destroy
   has_many :user_imports, dependent: :destroy
 
