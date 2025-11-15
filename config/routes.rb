@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
     resources :shifts
 
+    # Created via command line or recurring job
+    resources :shift_occurences, only: %i[ index show destroy ]
+
     resources :user_imports, except: %i[ edit update destroy ]
   end
 

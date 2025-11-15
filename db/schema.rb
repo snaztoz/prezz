@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_12_070136) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -68,6 +68,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_12_070136) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "shift_occurences", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "end_at", null: false
+    t.integer "shift_id", null: false
+    t.datetime "start_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_shift_occurences_on_shift_id"
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
@@ -122,6 +132,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_12_070136) do
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "shift_occurences", "shifts"
   add_foreign_key "shifts", "tenants"
   add_foreign_key "user_imports", "tenants"
   add_foreign_key "users", "tenants"
