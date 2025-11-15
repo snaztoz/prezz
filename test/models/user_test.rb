@@ -21,6 +21,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "downcased@example.com", user.email_address
   end
 
+  test "invalid email_address" do
+    user = User.new(email_address: "invalid")
+
+    assert user.invalid?
+    assert user.errors.where(:email_address, :invalid).present?
+  end
+
   test "strip all non-digit characters from phone_number" do
     user = User.new(phone_number: "+62 812-3456-7890")
 
