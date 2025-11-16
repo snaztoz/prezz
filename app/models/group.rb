@@ -4,6 +4,8 @@ class Group < ApplicationRecord
   include Archivable
 
   belongs_to :tenant
+  has_many :group_shifts, dependent: :destroy
+  has_many :shifts, through: :group_shifts
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 
