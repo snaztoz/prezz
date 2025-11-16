@@ -83,8 +83,8 @@ class GroupShiftsController < ApplicationController
   def set_group_shift
     @group_shift = GroupShift
       .joins(app_group: :tenant)
-      .where(id: params.expect(:id), app_group: { tenant: @tenant })
-      .first!
+      .where(app_group: { tenant: @tenant })
+      .find(params.expect(:id))
   end
 
   def group_shift_params

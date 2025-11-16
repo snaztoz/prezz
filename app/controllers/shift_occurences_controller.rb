@@ -10,7 +10,6 @@ class ShiftOccurencesController < ApplicationController
     @shift_occurences = ShiftOccurence
       .joins(shift: :tenant)
       .where(shift: { tenant: @tenant })
-      .all
   end
 
   def show
@@ -36,6 +35,9 @@ class ShiftOccurencesController < ApplicationController
   end
 
   def set_shift_occurence
-    @shift_occurence = ShiftOccurence.find(params.expect(:id))
+    @shift_occurence = ShiftOccurence
+      .joins(shift: :tenant)
+      .where(shift: { tenant: @tenant })
+      .find(params.expect(:id))
   end
 end
