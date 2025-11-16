@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Membership < ApplicationRecord
+  include Archivable
+
   belongs_to :user
   belongs_to :group
 

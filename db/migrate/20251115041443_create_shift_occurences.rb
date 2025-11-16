@@ -8,5 +8,7 @@ class CreateShiftOccurences < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    add_index :shift_occurences, :id, where: "archived_at IS NULL", name: "index_shift_occurences_on_active"
   end
 end

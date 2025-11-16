@@ -40,21 +40,25 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
   end
 
   create_table "groups", force: :cascade do |t|
+    t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.integer "tenant_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_groups_on_active", where: "archived_at IS NULL"
     t.index ["tenant_id", "name"], name: "index_groups_on_tenant_id_and_name", unique: true
     t.index ["tenant_id"], name: "index_groups_on_tenant_id"
   end
 
   create_table "memberships", force: :cascade do |t|
+    t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.integer "group_id", null: false
     t.string "role", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["id"], name: "index_memberships_on_active", where: "archived_at IS NULL"
     t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
@@ -75,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
     t.integer "shift_id", null: false
     t.datetime "start_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_shift_occurences_on_active", where: "archived_at IS NULL"
     t.index ["shift_id"], name: "index_shift_occurences_on_shift_id"
   end
 
@@ -89,6 +94,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
     t.time "start_time", null: false
     t.integer "tenant_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_shifts_on_active", where: "archived_at IS NULL"
     t.index ["tenant_id"], name: "index_shifts_on_tenant_id"
   end
 
@@ -98,6 +104,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
     t.string "name", null: false
     t.string "time_zone", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_tenants_on_active", where: "archived_at IS NULL"
   end
 
   create_table "user_imports", force: :cascade do |t|
@@ -120,6 +127,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_15_041443) do
     t.string "phone_number", null: false
     t.integer "tenant_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_users_on_active", where: "archived_at IS NULL"
     t.index ["tenant_id", "email_address"], name: "index_users_on_tenant_id_and_email_address", unique: true
     t.index ["tenant_id", "employee_number"], name: "index_users_on_tenant_id_and_employee_number", unique: true
     t.index ["tenant_id", "phone_number"], name: "index_users_on_tenant_id_and_phone_number", unique: true

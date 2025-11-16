@@ -12,5 +12,7 @@ class CreateShifts < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    add_index :shifts, :id, where: "archived_at IS NULL", name: "index_shifts_on_active"
   end
 end

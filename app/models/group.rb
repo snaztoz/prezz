@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Group < ApplicationRecord
+  include Archivable
+
   belongs_to :tenant
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships

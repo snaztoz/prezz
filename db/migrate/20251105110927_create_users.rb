@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
+    add_index :users, :id, where: "archived_at IS NULL", name: "index_users_on_active"
     add_index :users, %i[ tenant_id employee_number ], unique: true
     add_index :users, %i[ tenant_id email_address ], unique: true
     add_index :users, %i[ tenant_id phone_number ], unique: true

@@ -62,7 +62,7 @@ class GroupsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @group
 
-    @group.destroy!
+    @group.archive
 
     respond_to do |format|
       format.html { redirect_to tenant_groups_path(@tenant), notice: "Group was successfully destroyed.", status: :see_other }

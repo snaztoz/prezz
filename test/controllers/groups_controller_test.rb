@@ -76,9 +76,15 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  # test "should destroy non-admin group" do
-  #   # ...
-  # end
+  test "should destroy non-admin group" do
+    new_group = @tenant.groups.create!(name: "Non-Admin Group")
+
+    assert_not new_group.archived?
+
+    delete tenant_group_url(@tenant, new_group)
+
+    assert new_group.reload.archived?
+  end
 
   test "should not destroy admin group" do
     delete tenant_group_url(@tenant, @tenant.groups.first)

@@ -7,5 +7,7 @@ class CreateTenants < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    add_index :tenants, :id, where: "archived_at IS NULL", name: "index_tenants_on_active"
   end
 end
