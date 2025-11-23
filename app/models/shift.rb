@@ -7,4 +7,27 @@ class Shift < ApplicationRecord
   has_many :group_shifts, dependent: :destroy
   has_many :groups, through: :group_shifts
   has_many :occurences, class_name: "ShiftOccurence", dependent: :destroy
+
+  validates :name, presence: true, length: { maximum: 30 }
+  validates :start_time, presence: true
+  validates :end_time, presence: true
+  validates :recurrence_rule, presence: true
+  validates :effective_from, presence: true
+  validates :effective_to, comparison: { greater_than: :effective_from }, allow_nil: true
+
+  delegate :time_zone, to: :tenant
+
+  after_commit Shift::SavingCallback.new, on: %i[ create update ]
+
+  def days
+    @days ||= Shift::RecurrenceRuleParser.parse(recurrence_rule)
+  end
+
+  def duration
+    if start_time < end_time
+      end_time - start_time
+    else
+      (end_time + 1.day) - start_time
+    end
+  end
 end

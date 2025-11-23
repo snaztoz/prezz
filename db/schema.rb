@@ -91,6 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_055458) do
     t.datetime "start_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_shift_occurences_on_active", where: "archived_at IS NULL"
+    t.index ["shift_id", "start_at"], name: "index_shift_occurences_on_shift_id_and_start_at", unique: true
     t.index ["shift_id"], name: "index_shift_occurences_on_shift_id"
   end
 
