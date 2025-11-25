@@ -13,10 +13,10 @@ class TenantPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.tenant == tenant
+    user.tenant == tenant && user.admin?
   end
 
   def update?
-    user.tenant == tenant
+    user.tenant == tenant && user.admin?
   end
 end

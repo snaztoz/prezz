@@ -6,7 +6,7 @@ class TenantsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @tenant = tenants(:one)
 
-    sign_in_as(users(:one))
+    sign_in_as(users(:one_admin_leader))
   end
 
   test "should show tenant" do
@@ -24,7 +24,16 @@ class TenantsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     get edit_tenant_url(@tenant)
+
     assert_response :success
+  end
+
+  test "should not get edit for non-admin users" do
+    sign_in_as users(:one)
+
+    get edit_tenant_url(@tenant)
+
+    assert_response :forbidden
   end
 
   test "should not get edit tenant to users from another tenant" do
@@ -37,7 +46,16 @@ class TenantsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update tenant" do
     patch tenant_url(@tenant), params: { tenant: { name: @tenant.name } }
+
     assert_redirected_to tenant_url(@tenant)
+  end
+
+  test "should not update tenant for non-admin users" do
+    sign_in_as users(:one)
+
+    patch tenant_url(@tenant), params: { tenant: { name: @tenant.name } }
+
+    assert_response :forbidden
   end
 
   test "should not update tenant by users from another tenant" do
