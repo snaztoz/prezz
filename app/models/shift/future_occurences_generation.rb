@@ -20,9 +20,10 @@ class Shift::FutureOccurencesGeneration
   def generate_for_shift
     30.times.each do |i|
       start_at = positioned_time + i.days
-      day = day_mapping[start_at.wday]
 
-      create_with_starting_time(positioned_time + i.days) if shift.days.include?(day)
+      if create_for_starting_time?(start_at)
+        create_with_starting_time(start_at)
+      end
     end
   end
 
@@ -35,6 +36,12 @@ class Shift::FutureOccurencesGeneration
     minute = shift.start_time.min
 
     time.change(hour:, minute:).beginning_of_minute
+  end
+
+  def create_for_starting_time?(start_at)
+    day = day_mapping[start_at.wday]
+
+    start_at >= shift.effective_from_in_time_zone && shift.days.include?(day)
   end
 
   def create_with_starting_time(start_at)

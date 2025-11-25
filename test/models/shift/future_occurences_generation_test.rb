@@ -62,4 +62,14 @@ class Shift::FutureOccurencesGenerationTest < ActiveSupport::TestCase
       Shift::FutureOccurencesGeneration.generate_for(@shift)
     end
   end
+
+  test "future occurences generation should not create records before the effective_from value" do
+    today = ActiveSupport::TimeZone[@shift.time_zone].now.beginning_of_day
+    @shift.effective_from = today + 10.days
+    @shift.recurrence_rule = "everyday"
+
+    Shift::FutureOccurencesGeneration.generate_for(@shift)
+
+    assert @shift.occurences.all? { |o| o.start_at >= @shift.effective_from_in_time_zone }
+  end
 end

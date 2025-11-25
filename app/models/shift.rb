@@ -30,4 +30,8 @@ class Shift < ApplicationRecord
       (end_time + 1.day) - start_time
     end
   end
+
+  def effective_from_in_time_zone
+    effective_from.in_time_zone(time_zone)
+  end
 end
