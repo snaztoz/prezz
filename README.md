@@ -1,24 +1,57 @@
-# README
+# Prezz
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Prezz is an online employee attendance system. It's a monolithic app implemented using Ruby on Rails framework.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+* Multi-tenancy capabilities.
+* Group-based user management; work shifts are assigned to groups.
+* Timezone-aware shifts.
+* Bulk user import (via CSV).
+* Attendance with location & picture upload. **TODO**
+* Attendance corrections via group leader approval. **TODO**
+* Attendance reportings. **TODO**
 
-* System dependencies
+### Nerdy Features
 
-* Configuration
+* Implemented in monolithic Rails.
+* Ease of development & deployment due to Solid stacks (Solid Queue, Solid Cache and Solid Cable). No external dependencies are needed (other than the database).
+* Extensive test suites (currently containing 100+ test cases).
 
-* Database creation
+## Required Ruby Version
 
-* Database initialization
+ruby-3.4.2
 
-* How to run the test suite
+## System Dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+* A database engine compatible with Rails. The current configured default is SQLite.
 
-* Deployment instructions
+## Configuration
 
-* ...
+## Database Creation
+
+## Database Initialization
+
+## Run Tests
+
+Run:
+
+```
+bin/rails t
+```
+
+## Services
+
+### Job Queue
+
+## Deployment
+
+## Licensing & Commercial Use
+
+This project is licensed under the AGPL-3.0 License for open-source and non-commercial use.
+
+If you would like to use this software in a commercial or private/closed-source setting, please contact me at hafidhmn@gmail.com to obtain a commercial license.
+
+## Author
+
+Developed by [Hafidh Muqsithanova S](https://hafidhmn.com/)
