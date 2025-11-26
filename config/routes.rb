@@ -2,18 +2,20 @@
 
 Rails.application.routes.draw do
   resources :tenants, only: %i[ show edit update ], path: "t" do
-    resources :groups
-
     resources :group_shifts
+
+    resources :groups
 
     resources :passwords, param: :token
 
     resource :session
 
-    resources :shifts
+    resources :shift_attendances, except: %i[ edit destroy ]
 
     # Created via command line or recurring job
     resources :shift_occurences, only: %i[ index show destroy ]
+
+    resources :shifts
 
     resources :user_imports, except: %i[ edit update destroy ]
   end

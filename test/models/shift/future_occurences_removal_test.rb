@@ -6,7 +6,7 @@ class Shift::FutureOccurencesRemovalTest < ActiveSupport::TestCase
   setup do
     @shift = shifts(:one)
 
-    @shift.occurences.delete_all
+    @shift.occurences.destroy_all
     @shift.occurences.create! start_at: Time.now + 10.seconds, end_at: Time.now + 8.hours
     @shift.occurences.create! start_at: Time.now + 1.day, end_at: Time.now + 1.day + 8.hours
     @shift.occurences.create! start_at: Time.now + 2.days, end_at: Time.now + 2.days + 8.hours

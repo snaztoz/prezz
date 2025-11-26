@@ -6,9 +6,10 @@ class User < ApplicationRecord
 
   belongs_to :tenant
   has_secure_password
-  has_many :sessions, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
+  has_many :shift_attendances, dependent: :destroy
+  has_many :sessions, dependent: :destroy
 
   normalizes :full_name, with: ->(n) { n.strip }
   normalizes :employee_number, with: ->(n) { n.strip }

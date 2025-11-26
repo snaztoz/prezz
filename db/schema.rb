@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_16_055458) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -81,6 +81,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_055458) do
     t.string "user_agent"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "shift_attendances", force: :cascade do |t|
+    t.datetime "clock_in_at", null: false
+    t.datetime "clock_out_at"
+    t.datetime "created_at", null: false
+    t.string "location", null: false
+    t.integer "shift_occurence_id", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["shift_occurence_id"], name: "index_shift_attendances_on_shift_occurence_id"
+    t.index ["tenant_id"], name: "index_shift_attendances_on_tenant_id"
+    t.index ["user_id"], name: "index_shift_attendances_on_user_id"
   end
 
   create_table "shift_occurences", force: :cascade do |t|
@@ -154,6 +168,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_055458) do
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "shift_attendances", "shift_occurences"
+  add_foreign_key "shift_attendances", "tenants"
+  add_foreign_key "shift_attendances", "users"
   add_foreign_key "shift_occurences", "shifts"
   add_foreign_key "shifts", "tenants"
   add_foreign_key "user_imports", "tenants"
