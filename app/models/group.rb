@@ -11,7 +11,7 @@ class Group < ApplicationRecord
 
   normalizes :name, with: ->(n) { n.strip }
 
-  validates :name, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 15 }
+  validates :name, presence: true, uniqueness: { scope: :tenant }, length: { maximum: 50 }
 
   def admin_group?
     name == GroupConstant::ADMIN_GROUP_NAME
