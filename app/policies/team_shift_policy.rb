@@ -17,7 +17,7 @@ class TeamShiftPolicy < ApplicationPolicy
   end
 
   def show?
-    admin? || team_shift.app_team.memberships.exists?(user:)
+    admin? || team_shift.team.memberships.exists?(user:)
   end
 
   def edit?

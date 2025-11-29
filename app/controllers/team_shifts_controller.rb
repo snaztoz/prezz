@@ -9,8 +9,8 @@ class TeamShiftsController < ApplicationController
     authorize TeamShift
 
     @team_shifts = TeamShift
-      .joins(app_team: :tenant)
-      .where(app_team: { tenant: @tenant })
+      .joins(team: :tenant)
+      .where(team: { tenant: @tenant })
   end
 
   def show
@@ -82,8 +82,8 @@ class TeamShiftsController < ApplicationController
 
   def set_team_shift
     @team_shift = TeamShift
-      .joins(app_team: :tenant)
-      .where(app_team: { tenant: @tenant })
+      .joins(team: :tenant)
+      .where(team: { tenant: @tenant })
       .find(params.expect(:id))
   end
 
