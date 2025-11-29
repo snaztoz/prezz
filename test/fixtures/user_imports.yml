@@ -10,7 +10,7 @@ one_with_missing_column:
   status: 1
   tenant: one
 
-one_with_non_existing_group:
+one_with_non_existing_team:
   status: 1
   tenant: one
 

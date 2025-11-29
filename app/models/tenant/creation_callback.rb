@@ -3,17 +3,17 @@
 class Tenant::CreationCallback
   def after_commit(tenant)
     ActiveRecord::Base.transaction do
-      group = create_admin_group(tenant)
+      team = create_admin_team(tenant)
       user = create_admin(tenant)
 
-      group.memberships.create!(user:, role: "leader")
+      team.memberships.create!(user:, role: "leader")
     end
   end
 
   private
 
-  def create_admin_group(tenant)
-    tenant.groups.create! name: GroupConstant::ADMIN_GROUP_NAME
+  def create_admin_team(tenant)
+    tenant.teams.create! name: TeamConstant::ADMIN_TEAM_NAME
   end
 
   def create_admin(tenant)

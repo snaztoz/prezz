@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class UserImportPolicy < ApplicationPolicy
-  attr_reader :user, :group
+  attr_reader :user, :team
 
-  def initialize(user, group)
+  def initialize(user, team)
     @user = user
-    @group = group
+    @team = team
   end
 
   def index?

@@ -2,9 +2,9 @@
 
 Rails.application.routes.draw do
   resources :tenants, only: %i[ show edit update ], path: "t" do
-    resources :group_shifts
+    resources :team_shifts
 
-    resources :groups
+    resources :teams
 
     resources :passwords, param: :token
 

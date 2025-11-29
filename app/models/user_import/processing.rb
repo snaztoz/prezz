@@ -30,11 +30,11 @@ class UserImport::Processing
       tenant = user_import.tenant
       attributes = UserImport::Row.new(row).attributes
 
-      user_values = attributes.except(:group).merge({ tenant: })
+      user_values = attributes.except(:team).merge({ tenant: })
       user = User.create!(user_values)
 
-      group = Group.find_by!(tenant:, name: attributes[:group])
-      group.memberships.create!(user:, role: "member")
+      team = Team.find_by!(tenant:, name: attributes[:team])
+      team.memberships.create!(user:, role: "member")
     end
   end
 end

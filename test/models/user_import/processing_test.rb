@@ -16,7 +16,7 @@ class UserImport::ProcessingTest < ActiveSupport::TestCase
     assert_equal 1, user_import.imported_count
   end
 
-  test "importing from CSV should also added a user inside a group" do
+  test "importing from CSV should also added a user inside a team" do
     user_import = user_imports(:one)
 
     assert_difference "Membership.count" do
@@ -26,8 +26,8 @@ class UserImport::ProcessingTest < ActiveSupport::TestCase
     assert User.last.memberships.exists?
   end
 
-  test "importing from CSV with non-existing group" do
-    user_import = user_imports(:one_with_non_existing_group)
+  test "importing from CSV with non-existing team" do
+    user_import = user_imports(:one_with_non_existing_team)
 
     assert_no_difference "Membership.count" do
       UserImport::Processing.process(user_import)

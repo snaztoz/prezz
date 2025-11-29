@@ -4,25 +4,25 @@ class Membership < ApplicationRecord
   include Archivable
 
   belongs_to :user
-  belongs_to :group
+  belongs_to :team
 
-  validates :group, presence: true
-  validates :user, presence: true, uniqueness: { scope: :group }
+  validates :team, presence: true
+  validates :user, presence: true, uniqueness: { scope: :team }
   validates :role, presence: true, inclusion: { in: %w[leader member] }
-  validate :group_cannot_has_more_than_one_leader, on: %i[ create update ]
-  validate :user_cannot_be_member_of_multiple_groups, on: %i[ create update ]
+  validate :team_cannot_has_more_than_one_leader, on: %i[ create update ]
+  validate :user_cannot_be_member_of_multiple_teams, on: %i[ create update ]
 
   private
 
-  def group_cannot_has_more_than_one_leader
-    if role == "leader" && group.memberships.exists?(role: "leader")
-      errors.add(:role, "cannot have multiple leaders in a single group")
+  def team_cannot_has_more_than_one_leader
+    if role == "leader" && team.memberships.exists?(role: "leader")
+      errors.add(:role, "cannot have multiple leaders in a single team")
     end
   end
 
-  def user_cannot_be_member_of_multiple_groups
+  def user_cannot_be_member_of_multiple_teams
     if role == "member" && user.memberships.exists?(role: "member")
-      errors.add(:role, "cannot be a member in multiple groups")
+      errors.add(:role, "cannot be a member in multiple teams")
     end
   end
 end

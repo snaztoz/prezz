@@ -39,38 +39,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "group_shifts", force: :cascade do |t|
-    t.datetime "archived_at"
-    t.datetime "created_at", null: false
-    t.integer "group_id", null: false
-    t.integer "shift_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_group_shifts_on_group_id"
-    t.index ["id"], name: "index_group_shifts_occurences_on_active", where: "archived_at IS NULL"
-    t.index ["shift_id"], name: "index_group_shifts_on_shift_id"
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.datetime "archived_at"
-    t.datetime "created_at", null: false
-    t.string "name", null: false
-    t.integer "tenant_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_groups_on_active", where: "archived_at IS NULL"
-    t.index ["tenant_id", "name"], name: "index_groups_on_tenant_id_and_name", unique: true
-    t.index ["tenant_id"], name: "index_groups_on_tenant_id"
-  end
-
   create_table "memberships", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
-    t.integer "group_id", null: false
     t.string "role", null: false
+    t.integer "team_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.index ["group_id"], name: "index_memberships_on_group_id"
     t.index ["id"], name: "index_memberships_on_active", where: "archived_at IS NULL"
-    t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+    t.index ["team_id"], name: "index_memberships_on_team_id"
+    t.index ["user_id", "team_id"], name: "index_memberships_on_user_id_and_team_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
@@ -124,6 +102,28 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.index ["tenant_id"], name: "index_shifts_on_tenant_id"
   end
 
+  create_table "team_shifts", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.integer "shift_id", null: false
+    t.integer "team_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_team_shifts_occurences_on_active", where: "archived_at IS NULL"
+    t.index ["shift_id"], name: "index_team_shifts_on_shift_id"
+    t.index ["team_id"], name: "index_team_shifts_on_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "tenant_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_teams_on_active", where: "archived_at IS NULL"
+    t.index ["tenant_id", "name"], name: "index_teams_on_tenant_id_and_name", unique: true
+    t.index ["tenant_id"], name: "index_teams_on_tenant_id"
+  end
+
   create_table "tenants", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
@@ -162,10 +162,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "group_shifts", "groups"
-  add_foreign_key "group_shifts", "shifts"
-  add_foreign_key "groups", "tenants"
-  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "shift_attendances", "shift_occurences"
@@ -173,6 +170,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
   add_foreign_key "shift_attendances", "users"
   add_foreign_key "shift_occurences", "shifts"
   add_foreign_key "shifts", "tenants"
+  add_foreign_key "team_shifts", "shifts"
+  add_foreign_key "team_shifts", "teams"
+  add_foreign_key "teams", "tenants"
   add_foreign_key "user_imports", "tenants"
   add_foreign_key "users", "tenants"
 end

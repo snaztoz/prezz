@@ -11,7 +11,7 @@ class UserImport::Row
       employee_number: row["Employee Number"],
       email_address: row["Email Address"],
       phone_number: row["Phone Number"],
-      group: row["Group"],
+      team: row["Team"],
       password: row["Phone Number"].gsub(/\D/, "")
     }
   end

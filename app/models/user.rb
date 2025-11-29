@@ -7,7 +7,7 @@ class User < ApplicationRecord
   belongs_to :tenant
   has_secure_password
   has_many :memberships, dependent: :destroy
-  has_many :groups, through: :memberships
+  has_many :teams, through: :memberships
   has_many :shift_attendances, dependent: :destroy
   has_many :sessions, dependent: :destroy
 
@@ -33,10 +33,10 @@ class User < ApplicationRecord
     length: { maximum: 15 }
 
   def admin?
-    groups.exists? name: GroupConstant::ADMIN_GROUP_NAME
+    teams.exists? name: TeamConstant::ADMIN_TEAM_NAME
   end
 
-  def leader_of?(group)
-    memberships.exists? group:, role: "leader"
+  def leader_of?(team)
+    memberships.exists? team:, role: "leader"
   end
 end

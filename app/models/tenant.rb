@@ -3,7 +3,7 @@
 class Tenant < ApplicationRecord
   include Archivable
 
-  has_many :groups, dependent: :destroy
+  has_many :teams, dependent: :destroy
   has_many :shift_attendances, dependent: :destroy
   has_many :shifts, dependent: :destroy
   has_many :users, dependent: :destroy
@@ -14,7 +14,7 @@ class Tenant < ApplicationRecord
 
   after_commit Tenant::CreationCallback.new, on: :create
 
-  def admin_group
-    groups.find_by name: GroupConstant::ADMIN_GROUP_NAME
+  def admin_team
+    teams.find_by name: TeamConstant::ADMIN_TEAM_NAME
   end
 end
