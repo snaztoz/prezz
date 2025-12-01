@@ -32,10 +32,10 @@
   </head>
 
   <body class="bg-stone-100">
-    <div class="h-screen lg:grid grid-cols-4">
+    <div class="h-[100svh] flex flex-col lg:grid grid-cols-5">
       <%= render "layouts/navbar", tenant: @tenant, user: current_user %>
 
-      <main class="lg:col-span-3 p-4 lg:p-8 flex">
+      <main class="grow lg:col-span-4 lg:m-4 lg:ml-0 p-4 lg:p-8 flex bg-white lg:border border-neutral-300 rounded">
         <%= yield %>
       </main>
     </div>
