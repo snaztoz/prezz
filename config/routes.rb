@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :shifts
 
     resources :user_imports, except: %i[ edit update destroy ]
+
+    resources :users, only: %i[ index ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
