@@ -3,7 +3,7 @@
   <head>
     <title>
       <%= content_for(:title) %>
-      <% if authenticated? %>| <%= @tenant.name %><% end %>
+      <% if authenticated? %>- <%= @tenant.name %><% end %>
     </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">

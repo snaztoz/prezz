@@ -1,4 +1,11 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#index</h1>
-  <p>Find me in app/views/users/index.html.erb</p>
-</div>
+<% content_for :title, "Users" %>
+
+<header class="w-full h-fit border-b border-neutral-300 space-y-6">
+  <h1 class="font-bold text-xl">User & Teams</h1>
+
+  <nav class="flex gap-1 text-sm font-semibold">
+    <%= link_to "Users", tenant_users_url(@tenant), class: "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900" %>
+    <%= link_to "Teams", tenant_teams_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
+    <%= link_to "Imports", tenant_user_imports_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
+  </nav>
+</header>

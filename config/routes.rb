@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :tenants, only: %i[ show edit update ], path: "t" do
-    resources :team_shifts
+    resources :team_shifts, path: "team-shifts"
 
     resources :teams
 
@@ -10,14 +10,14 @@ Rails.application.routes.draw do
 
     resource :session
 
-    resources :shift_attendances, except: %i[ edit destroy ]
+    resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
 
     # Created via command line or recurring job
-    resources :shift_occurences, only: %i[ index show destroy ]
+    resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
 
     resources :shifts
 
-    resources :user_imports, except: %i[ edit update destroy ]
+    resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
 
     resources :users, only: %i[ index ]
   end
