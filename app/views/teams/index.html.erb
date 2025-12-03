@@ -1,7 +1,7 @@
 <% content_for :title, "Teams" %>
 
 <div class="w-full space-y-6">
-  <%= render UserAndTeamManagementHeaderComponent.new(@tenant, active_tab: :teams) %>
+  <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :teams) %>
 
   <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
     <div>

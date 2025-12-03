@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserAndTeamManagementHeaderComponent < ApplicationComponent
+class UserAndTeamManagements::HeaderComponent < ApplicationComponent
   def initialize(tenant, active_tab:)
     @tenant = tenant
     @active_tab = active_tab
