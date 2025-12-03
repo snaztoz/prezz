@@ -8,6 +8,10 @@ class TeamsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
 
     @teams = @tenant.teams
+      .left_joins(:memberships)
+      .select("teams.*, COUNT(memberships.id) AS members_count")
+      .group("teams.id")
+      .order(created_at: :desc)
   end
 
   def show
