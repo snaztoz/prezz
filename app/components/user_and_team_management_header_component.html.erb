@@ -1,0 +1,9 @@
+<header class="w-full h-fit border-b border-neutral-300 space-y-6">
+  <h1 class="font-semibold text-xl">User & Team Management</h1>
+
+  <nav class="flex gap-1 text-sm font-semibold">
+    <% tabs.each do |tab| %>
+      <%= link_to tab.text, tab.url, class: tab.html_class %>
+    <% end %>
+  </nav>
+</header>

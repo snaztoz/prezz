@@ -1,15 +1,7 @@
 <% content_for :title, "User Imports" %>
 
 <div class="w-full space-y-6">
-  <header class="w-full h-fit border-b border-neutral-300 space-y-6">
-    <h1 class="font-semibold text-xl">User & Teams Management</h1>
-
-    <nav class="flex gap-1 text-sm font-semibold">
-      <%= link_to "Users", tenant_users_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
-      <%= link_to "Teams", tenant_teams_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
-      <%= link_to "Imports", tenant_user_imports_url(@tenant), class: "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900" %>
-    </nav>
-  </header>
+  <%= render UserAndTeamManagementHeaderComponent.new(@tenant, active_tab: :user_imports) %>
 
   <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
     <%= form_with(

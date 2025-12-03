@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+class UserAndTeamManagementHeaderComponent < ApplicationComponent
+  def initialize(tenant, active_tab:)
+    @tenant = tenant
+    @active_tab = active_tab
+  end
+
+  def tabs
+    [
+      Tab.new({
+        text: "Users",
+        url: tenant_users_url(@tenant),
+        html_class: html_class_for(:users)
+      }),
+      Tab.new({
+        text: "Teams",
+        url: tenant_teams_url(@tenant),
+        html_class: html_class_for(:teams)
+      }),
+      Tab.new({
+        text: "Imports",
+        url: tenant_user_imports_url(@tenant),
+        html_class: html_class_for(:user_imports)
+      })
+    ]
+  end
+
+  private
+
+  class Tab
+    include ActiveModel::Model
+
+    attr_accessor :text, :url, :html_class
+  end
+
+  def html_class_for(tab_name)
+    if tab_name == @active_tab
+      "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900"
+    else
+      "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors"
+    end
+  end
+end
