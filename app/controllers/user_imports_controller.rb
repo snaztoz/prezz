@@ -8,10 +8,7 @@ class UserImportsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
-    @user_imports = @tenant
-      .user_imports
-      .includes(:file_attachment)
-      .all
+    @user_imports = @tenant.user_imports.all
   end
 
   def show
