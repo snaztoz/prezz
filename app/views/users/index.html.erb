@@ -1,11 +1,83 @@
 <% content_for :title, "Users" %>
 
-<header class="w-full h-fit border-b border-neutral-300 space-y-6">
-  <h1 class="font-bold text-xl">User & Teams</h1>
+<div class="w-full space-y-6">
+  <header class="w-full h-fit border-b border-neutral-300 space-y-6">
+    <h1 class="font-semibold text-xl">User & Teams Management</h1>
 
-  <nav class="flex gap-1 text-sm font-semibold">
-    <%= link_to "Users", tenant_users_url(@tenant), class: "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900" %>
-    <%= link_to "Teams", tenant_teams_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
-    <%= link_to "Imports", tenant_user_imports_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
+    <nav class="flex gap-1 text-sm font-semibold">
+      <%= link_to "Users", tenant_users_url(@tenant), class: "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900" %>
+      <%= link_to "Teams", tenant_teams_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
+      <%= link_to "Imports", tenant_user_imports_url(@tenant), class: "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors" %>
+    </nav>
+  </header>
+
+  <nav>
+    <%= form_with(
+      url: tenant_users_url(@tenant),
+      method: :get,
+      data: {
+        controller: "submit-on-change",
+        submit_on_change_target: "form",
+        turbo_frame: "users-frame"
+      }) do |f|
+    %>
+      <%= f.select(
+        :role,
+        [["All Role", "all"], ["Member", "member"], ["Leader", "leader"]],
+        {
+          selected: params[:role] || "all"
+        },
+        class: "min-w-28 px-4 py-2 border border-neutral-300 rounded-md shadow-xs text-sm",
+        data: {
+          action: "submit-on-change#submit"
+        })
+      %>
+    <% end %>
   </nav>
-</header>
+
+  <%= turbo_frame_tag "users-frame", data: { turbo_action: "advance" } do %>
+    <section class="overflow-x-auto">
+      <table class="table-fixed w-272 xl:w-full">
+        <thead>
+          <tr class="*:bg-neutral-100 [&>:first-child]:rounded-l-md [&>:last-child]:rounded-r-md">
+            <th class="w-40 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Employee No.</th>
+            <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">Name</th>
+            <th class="w-48 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Phone</th>
+            <th class="w-56 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Email</th>
+            <th class="w-72 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Teams</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-200 last:border-b last:border-neutral-200">
+          <% @users.each do |u| %>
+            <tr class="relative *:pl-4 *:py-4 *:text-sm">
+              <td><%= u.employee_number %></td>
+              <td>
+                <%= link_to "#" do %>
+                  <span class="absolute inset-0"></span>
+                  <%= u.full_name %>
+                <% end %>
+              </td>
+              <td><%= u.phone_number %></td>
+              <td><%= u.email_address %></td>
+              <td>
+                <% u.memberships.each do |m| %>
+                  <div>
+                    <%= link_to(
+                      m.team.name,
+                      [@tenant, m.team],
+                      class: "relative z-10 underline text-blue-600 hover:text-blue-700 transition-colors",
+                      data: {
+                        turbo_frame: "_top"
+                      })
+                    %>
+                    <% if m.leader? %>(leader)<% end %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </section>
+</div>

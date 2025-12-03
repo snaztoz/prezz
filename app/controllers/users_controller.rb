@@ -6,6 +6,12 @@ class UsersController < ApplicationController
   def index
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize User
+
+    @users = @tenant
+      .users
+      .includes(memberships: :team)
+      .with_role(params[:role])
+      .order(created_at: :desc)
   end
 
   private

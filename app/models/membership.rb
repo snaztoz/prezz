@@ -12,6 +12,10 @@ class Membership < ApplicationRecord
   validate :team_cannot_has_more_than_one_leader, on: %i[ create update ]
   validate :user_cannot_be_member_of_multiple_teams, on: %i[ create update ]
 
+  def leader?
+    role == "leader"
+  end
+
   private
 
   def team_cannot_has_more_than_one_leader

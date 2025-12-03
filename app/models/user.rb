@@ -4,8 +4,9 @@ class User < ApplicationRecord
   include ActiveSupport::NumberHelper
   include Archivable
 
-  belongs_to :tenant
   has_secure_password
+
+  belongs_to :tenant
   has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_many :shift_attendances, dependent: :destroy
@@ -31,6 +32,12 @@ class User < ApplicationRecord
     presence: true,
     uniqueness: { scope: :tenant },
     length: { maximum: 15 }
+
+  scope :with_role, ->(role) {
+    if %w[ leader member ].include?(role)
+      where(memberships: { role: })
+    end
+  }
 
   def admin?
     teams.exists? name: TeamConstant::ADMIN_TEAM_NAME
