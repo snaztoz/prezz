@@ -8,7 +8,10 @@ class UserImportsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
-    @user_imports = @tenant.user_imports.all
+    @user_imports = @tenant
+      .user_imports
+      .includes(:file_attachment)
+      .all
   end
 
   def show
@@ -27,7 +30,9 @@ class UserImportsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
-    @user_import = @tenant.user_imports.build(user_import_params.merge({ status: "waiting" }))
+    @user_import = @tenant
+      .user_imports
+      .build(user_import_params.merge({ status: "waiting" }))
 
     respond_to do |format|
       if @user_import.save
@@ -47,7 +52,9 @@ class UserImportsController < ApplicationController
   end
 
   def set_user_import
-    @user_import = @tenant.user_imports.find(params.expect(:id))
+    @user_import = @tenant
+      .user_imports
+      .find(params.expect(:id))
   end
 
   def user_import_params
