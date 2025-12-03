@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NavbarMenuItemComponent < ApplicationComponent
+class Navbars::MenuItemComponent < ApplicationComponent
   def initialize(text:, link:)
     @text = text
     @link = link
