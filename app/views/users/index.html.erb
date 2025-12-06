@@ -4,27 +4,17 @@
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
 
   <nav>
-    <%= form_with(
+    <%= render PageReloadingSelectComponent.new(
+      name: :role,
       url: tenant_users_url(@tenant),
-      method: :get,
-      data: {
-        controller: "submit-on-change",
-        submit_on_change_target: "form",
-        turbo_frame: "users-frame"
-      }) do |f|
+      options: [
+        ["All Role", "all"],
+        ["Member", "member"],
+        ["Leader", "leader"]
+      ],
+      selected: params[:role] || "all",
+      turbo_frame: "users-frame")
     %>
-      <%= f.select(
-        :role,
-        [["All Role", "all"], ["Member", "member"], ["Leader", "leader"]],
-        {
-          selected: params[:role] || "all"
-        },
-        class: "min-w-28 px-4 py-2 border border-neutral-300 rounded-md shadow-xs text-sm",
-        data: {
-          action: "submit-on-change#submit"
-        })
-      %>
-    <% end %>
   </nav>
 
   <%= turbo_frame_tag "users-frame", data: { turbo_action: "advance" } do %>

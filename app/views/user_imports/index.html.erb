@@ -4,27 +4,19 @@
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :user_imports) %>
 
   <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
-    <%= form_with(
+    <%= render PageReloadingSelectComponent.new(
+      name: :status,
       url: tenant_user_imports_url(@tenant),
-      method: :get,
-      data: {
-        controller: "submit-on-change",
-        submit_on_change_target: "form",
-        turbo_frame: "user-imports-frame"
-      }) do |f|
+      options: [
+        ["All Status", "all"],
+        ["Waiting", "waiting"],
+        ["Processing", "processing"],
+        ["Success", "success"],
+        ["Failed", "failed"]
+      ],
+      selected: params[:status] || "all",
+      turbo_frame: "user-imports-frame")
     %>
-      <%= f.select(
-        :status,
-        [["All Status", "all"], ["Waiting", "waiting"], ["Processing", "processing"], ["Success", "success"], ["Failed", "failed"]],
-        {
-          selected: params[:status] || "all"
-        },
-        class: "min-w-28 px-4 py-2 border border-neutral-300 rounded-md shadow-xs text-sm",
-        data: {
-          action: "submit-on-change#submit"
-        })
-      %>
-    <% end %>
 
     <div class="w-full sm:w-auto">
       <%= link_to(

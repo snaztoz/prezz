@@ -1,0 +1,21 @@
+<%= form_with(
+  url: @url,
+  method: :get,
+  data: {
+    controller: "submit-on-change",
+    submit_on_change_target: "form",
+    turbo_frame: @turbo_frame
+  }) do |f|
+%>
+  <%= f.select(
+    @name,
+    @options,
+    {
+      selected: @selected
+    },
+    class: "min-w-28 px-4 py-2 border border-neutral-300 rounded-md shadow-xs text-sm",
+    data: {
+      action: "submit-on-change#submit"
+    })
+  %>
+<% end %>
