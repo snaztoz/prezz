@@ -3,7 +3,7 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
 
-  <nav class="flex">
+  <nav class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
     <%= render PageReloadingSelectComponent.new(
       name: :role,
       url: tenant_users_url(@tenant),
@@ -16,6 +16,16 @@
       classes: "w-full sm:w-auto",
       turbo_frame: "users-frame")
     %>
+
+    <div class="w-full sm:w-72 sm:order-first">
+      <%= render PageReloadingSearchboxComponent.new(
+        name: :q,
+        text: "Search user",
+        url: tenant_users_url(@tenant),
+        value: params[:q],
+        turbo_frame: "users-frame")
+      %>
+    </div>
   </nav>
 
   <%= turbo_frame_tag "users-frame", data: { turbo_action: "advance" } do %>

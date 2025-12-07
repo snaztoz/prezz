@@ -3,9 +3,15 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :teams) %>
 
-  <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
-    <div>
-      <%# Empty temporary %>
+  <nav class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
+    <div class="w-full sm:w-72">
+      <%= render PageReloadingSearchboxComponent.new(
+        name: :q,
+        text: "Search team",
+        url: tenant_teams_url(@tenant),
+        value: params[:q],
+        turbo_frame: "teams-frame")
+      %>
     </div>
 
     <div class="w-full sm:w-auto">
