@@ -3,7 +3,7 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
 
-  <nav>
+  <nav class="flex">
     <%= render PageReloadingSelectComponent.new(
       name: :role,
       url: tenant_users_url(@tenant),
@@ -13,6 +13,7 @@
         ["Leader", "leader"]
       ],
       selected: params[:role] || "all",
+      classes: "w-full sm:w-auto",
       turbo_frame: "users-frame")
     %>
   </nav>
