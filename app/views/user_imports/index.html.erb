@@ -3,21 +3,22 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :user_imports) %>
 
-  <nav class="flex flex-col sm:flex-row justify-between items-center gap-4">
-    <%= render PageReloadingSelectComponent.new(
-      name: :status,
-      url: tenant_user_imports_url(@tenant),
-      options: [
-        ["All Status", "all"],
-        ["Waiting", "waiting"],
-        ["Processing", "processing"],
-        ["Success", "success"],
-        ["Failed", "failed"]
-      ],
-      selected: params[:status] || "all",
-      classes: "w-full sm:w-auto",
-      turbo_frame: "user-imports-frame")
-    %>
+  <nav class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
+    <div class="w-full sm:w-32">
+      <%= render PageReloadingSelectComponent.new(
+        name: :status,
+        url: tenant_user_imports_url(@tenant),
+        options: [
+          ["All Status", "all"],
+          ["Waiting", "waiting"],
+          ["Processing", "processing"],
+          ["Success", "success"],
+          ["Failed", "failed"]
+        ],
+        selected: params[:status] || "all",
+        turbo_frame: "user-imports-frame")
+      %>
+    </div>
 
     <div class="w-full sm:w-auto">
       <%= link_to(

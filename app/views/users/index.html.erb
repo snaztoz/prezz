@@ -4,18 +4,19 @@
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
 
   <nav class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-    <%= render PageReloadingSelectComponent.new(
-      name: :role,
-      url: tenant_users_url(@tenant),
-      options: [
-        ["All Role", "all"],
-        ["Member", "member"],
-        ["Leader", "leader"]
-      ],
-      selected: params[:role] || "all",
-      classes: "w-full sm:w-auto",
-      turbo_frame: "users-frame")
-    %>
+    <div class="w-full sm:w-32">
+      <%= render PageReloadingSelectComponent.new(
+        name: :role,
+        url: tenant_users_url(@tenant),
+        options: [
+          ["All Role", "all"],
+          ["Member", "member"],
+          ["Leader", "leader"]
+        ],
+        selected: params[:role] || "all",
+        turbo_frame: "users-frame")
+      %>
+    </div>
 
     <div class="w-full sm:w-72 sm:order-first">
       <%= render PageReloadingSearchboxComponent.new(
