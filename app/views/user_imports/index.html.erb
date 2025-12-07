@@ -3,37 +3,36 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :user_imports) %>
 
-  <nav class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
-    <div class="w-full sm:w-32">
-      <%= render PageReloadingSelectComponent.new(
-        name: :status,
-        url: tenant_user_imports_url(@tenant),
-        options: [
-          ["All Status", "all"],
-          ["Waiting", "waiting"],
-          ["Processing", "processing"],
-          ["Success", "success"],
-          ["Failed", "failed"]
-        ],
-        selected: params[:status] || "all",
-        turbo_frame: "user-imports-frame")
-      %>
-    </div>
+  <%= turbo_frame_tag "user-imports-frame", class: "space-y-6", data: { turbo_action: "advance" } do %>
+    <nav class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
+      <div class="w-full sm:w-32">
+        <%= render PageReloadingSelectComponent.new(
+          name: :status,
+          url: tenant_user_imports_url(@tenant),
+          options: [
+            ["All Status", "all"],
+            ["Waiting", "waiting"],
+            ["Processing", "processing"],
+            ["Success", "success"],
+            ["Failed", "failed"]
+          ],
+          selected: params[:status] || "all")
+        %>
+      </div>
 
-    <div class="w-full sm:w-auto">
-      <%= link_to(
-        new_tenant_user_import_url(@tenant),
-        class: "flex justify-center items-center gap-2 px-4 py-2 bg-indigo-600
-          hover:bg-indigo-700 focus:bg-indigo-700 transition-colors rounded
-          text-center text-sm text-white font-medium") do
-      %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus size-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-        Import Users
-      <% end %>
-    </div>
-  </nav>
+      <div class="w-full sm:w-auto">
+        <%= link_to(
+          new_tenant_user_import_url(@tenant),
+          class: "flex justify-center items-center gap-2 px-4 py-2 bg-indigo-600
+            hover:bg-indigo-700 focus:bg-indigo-700 transition-colors rounded
+            text-center text-sm text-white font-medium") do
+        %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus size-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+          Import Users
+        <% end %>
+      </div>
+    </nav>
 
-  <%= turbo_frame_tag "user-imports-frame", data: { turbo_action: "advance" } do %>
     <section class="overflow-x-auto">
       <table class="table-fixed w-216 xl:w-full">
         <thead>

@@ -3,33 +3,31 @@
 <div class="w-full space-y-6">
   <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
 
-  <nav class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-    <div class="w-full sm:w-32">
-      <%= render PageReloadingSelectComponent.new(
-        name: :role,
-        url: tenant_users_url(@tenant),
-        options: [
-          ["All Role", "all"],
-          ["Member", "member"],
-          ["Leader", "leader"]
-        ],
-        selected: params[:role] || "all",
-        turbo_frame: "users-frame")
-      %>
-    </div>
+  <%= turbo_frame_tag "users-frame", class: "space-y-6", data: { turbo_action: "advance" } do %>
+    <nav class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+      <div class="w-full sm:w-32">
+        <%= render PageReloadingSelectComponent.new(
+          name: :role,
+          url: tenant_users_url(@tenant),
+          options: [
+            ["All Role", "all"],
+            ["Member", "member"],
+            ["Leader", "leader"]
+          ],
+          selected: params[:role] || "all")
+        %>
+      </div>
 
-    <div class="w-full sm:w-72 sm:order-first">
-      <%= render PageReloadingSearchboxComponent.new(
-        name: :q,
-        text: "Search user",
-        url: tenant_users_url(@tenant),
-        value: params[:q],
-        turbo_frame: "users-frame")
-      %>
-    </div>
-  </nav>
+      <div class="w-full sm:w-72 sm:order-first">
+        <%= render PageReloadingSearchboxComponent.new(
+          name: :q,
+          text: "Search user",
+          url: tenant_users_url(@tenant),
+          value: params[:q])
+        %>
+      </div>
+    </nav>
 
-  <%= turbo_frame_tag "users-frame", data: { turbo_action: "advance" } do %>
     <section class="overflow-x-auto">
       <table class="table-fixed w-272 xl:w-full">
         <thead>
@@ -73,6 +71,6 @@
           <% end %>
         </tbody>
       </table>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 </div>

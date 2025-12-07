@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class PageReloadingSelectComponent < ApplicationComponent
-  def initialize(name:, url:, options:, selected:, turbo_frame:)
+  def initialize(name:, url:, options:, selected:)
     @name = name
     @url = url
     @options = options
     @selected = selected
-    @turbo_frame = turbo_frame
   end
 end
