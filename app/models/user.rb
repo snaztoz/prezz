@@ -33,7 +33,7 @@ class User < ApplicationRecord
     uniqueness: { scope: :tenant },
     length: { maximum: 15 }
 
-  scope :with_role, ->(role) {
+  scope :where_role, ->(role) {
     if %w[ leader member ].include?(role)
       where(memberships: { role: })
     end

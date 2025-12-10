@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @users = @tenant
       .users
       .includes(memberships: :team)
-      .with_role(params[:role])
+      .where_role(params[:role])
       .order(created_at: :desc)
   end
 
