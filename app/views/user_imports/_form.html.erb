@@ -13,7 +13,7 @@
 
   <div class="my-6 text-sm">
     <%= form.label :file, class: "text-xs font-semibold uppercase tracking-wide text-neutral-500" %>
-    <%= form.file_field :file, accept: "text/csv", class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": user_import.errors[:file].none?, "border-red-400 focus:outline-red-600": user_import.errors[:file].any?}] %>
+    <%= form.file_field :file, accept: "text/csv", class: ["block shadow-sm rounded-md border px-3 py-1.75 mt-2 w-full sm:w-2/3 lg:w-1/2", {"border-gray-400 focus:outline-blue-600": user_import.errors[:file].none?, "border-red-400 focus:outline-red-600": user_import.errors[:file].any?}] %>
   </div>
 
   <div class="mt-8">
