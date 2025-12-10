@@ -55,15 +55,17 @@
                 <% u.memberships.each do |m| %>
                   <div>
                     <%= link_to(
-                      m.team.name,
                       [@tenant, m.team],
-                      class: "relative z-10 text-blue-600 font-medium
-                        hover:text-blue-700 hover:underline transition-colors",
+                      class: "relative z-10 px-3 py-1.5 border border-neutral-300
+                        rounded-full font-medium shadow-xs hover:shadow-sm
+                        transition-shadow",
                       data: {
                         turbo_frame: "_top"
-                      })
+                      }) do
                     %>
-                    <% if m.leader? %>(leader)<% end %>
+                      <%= m.team.name %>
+                      <% if m.leader? %>(leader)<% end %>
+                    <% end %>
                   </div>
                 <% end %>
               </td>

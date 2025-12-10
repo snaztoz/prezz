@@ -12,6 +12,12 @@ class UserImport < ApplicationRecord
     content_type: :csv,
     size: { less_than: 500.kilobytes }
 
+  scope :where_status, ->(status) {
+    if %w[ waiting processing success failed ].include?(status)
+      where(status:)
+    end
+  }
+
   after_commit :process, on: :create
 
   def csv

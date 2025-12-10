@@ -10,7 +10,7 @@
           name: :status,
           url: tenant_user_imports_url(@tenant),
           options: [
-            ["All Status", "all"],
+            ["All Statuses", "all"],
             ["Waiting", "waiting"],
             ["Processing", "processing"],
             ["Success", "success"],
@@ -23,9 +23,12 @@
       <div class="w-full sm:w-auto">
         <%= link_to(
           new_tenant_user_import_url(@tenant),
-          class: "flex justify-center items-center gap-2 px-4 py-2 bg-indigo-600
-            hover:bg-indigo-700 focus:bg-indigo-700 transition-colors rounded
-            text-center text-sm text-white font-medium") do
+          class: "flex justify-center items-center gap-2 px-4 py-2 bg-neutral-800
+            hover:bg-neutral-900 transition-colors rounded text-center text-sm
+            text-white font-medium",
+          data: {
+            turbo_frame: "_top"
+          }) do
         %>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus size-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
           Import Users
@@ -39,7 +42,7 @@
           <tr class="*:bg-neutral-100 [&>:first-child]:rounded-l-md [&>:last-child]:rounded-r-md">
             <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">File Name</th>
             <th class="w-40 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Status</th>
-            <th class="w-48 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Imported Count</th>
+            <th class="w-48 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Imported</th>
             <th class="w-56 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Uploaded</th>
           </tr>
         </thead>
@@ -50,11 +53,11 @@
                 <td>
                   <%= link_to [@tenant, import] do %>
                     <span class="absolute inset-0"></span>
-                    File Name Here
+                    <%= import.file.filename.to_s %>
                   <% end %>
                 </td>
                 <td><%= import.status %></td>
-                <td><%= import.imported_count %></td>
+                <td><%= import.imported_count || 0 %></td>
                 <td><%= import.created_at %></td>
               </tr>
             <% end %>
