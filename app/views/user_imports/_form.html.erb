@@ -13,10 +13,10 @@
 
   <div class="my-6 text-sm">
     <%= form.label :file, class: "text-xs font-semibold uppercase tracking-wide text-neutral-500" %>
-    <%= form.file_field :file, accept: "text/csv", class: ["block shadow-sm rounded-md border px-3 py-1.75 mt-2 w-full sm:w-2/3 lg:w-1/2", {"border-gray-400 focus:outline-blue-600": user_import.errors[:file].none?, "border-red-400 focus:outline-red-600": user_import.errors[:file].any?}] %>
+    <%= form.file_field :file, accept: "text/csv", class: ["block w-full sm:w-2/3 lg:w-1/2 min-h-9 mt-2 px-3 py-1.75 border", {"border-neutral-400 focus:outline-blue-600": user_import.errors[:file].none?, "border-red-400 focus:outline-red-600": user_import.errors[:file].any?}] %>
   </div>
 
   <div class="mt-8">
-    <%= form.submit "Upload File", class: "w-full sm:w-auto rounded-md px-4 py-2 bg-neutral-800 hover:bg-neutral-900 text-sm text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Upload File", class: "w-full sm:w-auto min-h-9 px-4 py-2 bg-neutral-800 hover:bg-neutral-900 text-sm text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

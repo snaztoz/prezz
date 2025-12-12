@@ -36,9 +36,9 @@ class UserAndTeamManagements::HeaderComponent < ApplicationComponent
 
   def html_class_for(tab_name)
     if tab_name == @active_tab
-      "inline-block px-4 py-2 border-b-2 border-neutral-900 text-neutral-900"
+      "inline-block min-h-9 px-4 py-1.5 border-b-2 border-neutral-900 text-neutral-900"
     else
-      "inline-block px-4 py-2 text-neutral-500 hover:text-neutral-700 transition-colors"
+      "inline-block min-h-9 px-4 py-1.5 text-neutral-500 hover:text-neutral-700 transition-colors"
     end
   end
 end

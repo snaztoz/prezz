@@ -3,7 +3,7 @@
 <%= form_with(model: [tenant, team], class: "py-6 sm:py-8 space-y-6 sm:space-y-8") do |form| %>
   <div class="text-sm">
     <%= form.label :name, "Team Name", class: "text-xs font-semibold uppercase tracking-wide text-neutral-500" %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-1.75 mt-2 w-full sm:w-2/3 lg:w-1/2", {"border-gray-400 focus:outline-blue-600": team.errors[:name].none?, "border-red-400 focus:outline-red-600": team.errors[:name].any?}] %>
+    <%= form.text_field :name, class: ["block w-full sm:w-2/3 lg:w-1/2 min-h-9 px-3 py-1.75 mt-2 border", {"border-neutral-400 focus:outline-blue-600": team.errors[:name].none?, "border-red-400 focus:outline-red-600": team.errors[:name].any?}] %>
 
     <% if team.errors[:name].present? %>
       <span class="block mt-3 text-red-500 font-medium">
@@ -13,6 +13,6 @@
   </div>
 
   <div>
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-4 py-2 bg-neutral-800 hover:bg-neutral-900 text-sm text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "w-full sm:w-auto min-h-9 px-4 py-2 bg-neutral-800 hover:bg-neutral-900 text-sm text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

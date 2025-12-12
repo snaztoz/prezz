@@ -35,7 +35,7 @@
     <div class="h-[100svh] flex flex-col lg:grid grid-cols-5">
       <%= render "layouts/navbar", tenant: @tenant, user: current_user %>
 
-      <main class="grow lg:col-span-4 lg:m-4 lg:ml-0 p-4 lg:p-8 flex bg-white lg:border border-neutral-300 rounded-lg">
+      <main class="grow lg:col-span-4 lg:m-4 lg:ml-0 p-4 lg:p-8 flex bg-white lg:border border-neutral-300">
         <%= yield %>
       </main>
     </div>

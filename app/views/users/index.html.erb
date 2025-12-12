@@ -31,7 +31,7 @@
     <section class="overflow-x-auto">
       <table class="table-fixed w-272 xl:w-full">
         <thead>
-          <tr class="*:bg-neutral-100 [&>:first-child]:rounded-l-md [&>:last-child]:rounded-r-md">
+          <tr class="min-h-9 *:bg-neutral-100 border border-neutral-300">
             <th class="w-40 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Employee No.</th>
             <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">Name</th>
             <th class="w-48 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Phone</th>
@@ -57,8 +57,7 @@
                     <%= link_to(
                       [@tenant, m.team],
                       class: "relative z-10 px-3 py-1.5 border border-neutral-300
-                        rounded-full font-medium shadow-xs hover:shadow-sm
-                        transition-shadow",
+                        shadow-xs hover:shadow-sm transition-shadow",
                       data: {
                         turbo_frame: "_top"
                       }) do

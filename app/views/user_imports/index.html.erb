@@ -24,8 +24,8 @@
         <%= link_to(
           new_tenant_user_import_url(@tenant),
           class: "flex justify-center items-center gap-2 px-4 py-2 bg-neutral-800
-            hover:bg-neutral-900 transition-colors rounded text-center text-sm
-            text-white font-medium",
+            hover:bg-neutral-900 transition-colors text-center text-sm text-white
+            font-medium",
           data: {
             turbo_frame: "_top"
           }) do
@@ -39,7 +39,7 @@
     <section class="overflow-x-auto">
       <table class="table-fixed w-216 xl:w-full">
         <thead>
-          <tr class="*:bg-neutral-100 [&>:first-child]:rounded-l-md [&>:last-child]:rounded-r-md">
+          <tr class="min-h-9 *:bg-neutral-100 border border-neutral-300">
             <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">File Name</th>
             <th class="w-40 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Status</th>
             <th class="w-48 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Imported</th>
