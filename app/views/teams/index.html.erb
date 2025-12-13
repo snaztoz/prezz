@@ -41,17 +41,17 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200 last:border-b last:border-neutral-200">
-          <% @teams.each do |t| %>
+          <% @teams.each do |team| %>
             <tr class="relative *:pl-4 *:py-4 *:text-sm">
               <td>
-                <%= link_to [@tenant, t] do %>
+                <%= link_to [@tenant, team] do %>
                   <span class="absolute inset-0"></span>
-                  <%= t.name %>
+                  <%= team.name %>
                 <% end %>
               </td>
-              <td><%= t.members_count %></td>
+              <td><%= team.members_count %></td>
               <td>-</td>
-              <td><%= t.created_at %></td>
+              <td><%= team.created_at %></td>
             </tr>
           <% end %>
         </tbody>

@@ -40,33 +40,44 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200 last:border-b last:border-neutral-200">
-          <% @users.each do |u| %>
-            <tr class="relative *:pl-4 *:py-4 *:text-sm">
-              <td><%= u.employee_number %></td>
-              <td>
-                <%= link_to "#" do %>
-                  <span class="absolute inset-0"></span>
-                  <%= u.full_name %>
-                <% end %>
-              </td>
-              <td><%= u.phone_number %></td>
-              <td><%= u.email_address %></td>
-              <td>
-                <% u.memberships.each do |m| %>
-                  <div>
-                    <%= link_to(
-                      [@tenant, m.team],
-                      class: "relative z-10 px-3 py-1.5 border border-neutral-300
-                        shadow-xs hover:shadow-sm transition-shadow",
-                      data: {
-                        turbo_frame: "_top"
-                      }) do
-                    %>
-                      <%= m.team.name %>
-                      <% if m.leader? %>(leader)<% end %>
-                    <% end %>
-                  </div>
-                <% end %>
+          <% if @users.any? %>
+            <% @users.each do |user| %>
+              <tr class="relative *:pl-4 *:py-4 *:text-sm">
+                <td><%= user.employee_number %></td>
+                <td>
+                  <%= link_to "#" do %>
+                    <span class="absolute inset-0"></span>
+                    <%= user.full_name %>
+                  <% end %>
+                </td>
+                <td><%= user.phone_number %></td>
+                <td><%= user.email_address %></td>
+                <td>
+                  <% user.memberships.each do |membership| %>
+                    <div>
+                      <%= link_to(
+                        [@tenant, membership.team],
+                        class: "relative z-10 px-3 py-1.5 border border-neutral-300
+                          shadow-xs hover:shadow-sm transition-shadow",
+                        data: {
+                          turbo_frame: "_top"
+                        }) do
+                      %>
+                        <%= membership.team.name %>
+                        <% if membership.leader? %>(leader)<% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td
+                colspan="5"
+                class="py-4 text-center text-sm text-neutral-600 font-medium"
+              >
+                No data
               </td>
             </tr>
           <% end %>
