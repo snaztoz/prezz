@@ -1,25 +1,27 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :tenants, only: %i[ show edit update ], path: "t" do
-    resources :team_shifts, path: "team-shifts"
+  scope "(:locale)", locale: /en|id/, defaults: { locale: "en" } do
+    resources :tenants, only: %i[ show edit update ], path: "t" do
+      resources :team_shifts, path: "team-shifts"
 
-    resources :teams
+      resources :teams
 
-    resources :passwords, param: :token
+      resources :passwords, param: :token
 
-    resource :session
+      resource :session
 
-    resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
+      resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
 
-    # Created via command line or recurring job
-    resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
+      # Created via command line or recurring job
+      resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
 
-    resources :shifts
+      resources :shifts
 
-    resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
+      resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
 
-    resources :users, only: %i[ index ]
+      resources :users, only: %i[ index ]
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

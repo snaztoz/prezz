@@ -25,5 +25,8 @@ module Prezz
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.action_dispatch.rescue_responses["Pundit::NotAuthorizedError"] = :forbidden
+
+    config.i18n.default_locale = :en
+    config.i18n.available_locales = [ :en, :id ]
   end
 end
