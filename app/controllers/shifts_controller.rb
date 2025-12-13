@@ -8,7 +8,7 @@ class ShiftsController < ApplicationController
     authorize @tenant, :access?, policy_class: TenantPolicy
     authorize Shift
 
-    @shifts = @tenant.shifts.all
+    @shifts = @tenant.shifts.order(created_at: :desc)
   end
 
   def show

@@ -24,11 +24,15 @@ class Shift < ApplicationRecord
   end
 
   def duration
-    if start_time < end_time
-      end_time - start_time
-    else
+    if overnight?
       (end_time + 1.day) - start_time
+    else
+      end_time - start_time
     end
+  end
+
+  def overnight?
+    start_time > end_time
   end
 
   def effective_from_in_time_zone

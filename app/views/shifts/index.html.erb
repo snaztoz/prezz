@@ -33,13 +33,15 @@
     </nav>
 
     <section class="overflow-x-auto">
-      <table class="table-fixed w-192 md:w-full">
+      <table class="table-fixed w-256 xl:w-full">
         <thead>
           <tr class="min-h-9 *:bg-neutral-100 border border-neutral-300">
             <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">Name</th>
-            <th class="pl-4 py-2 text-left text-sm font-medium text-neutral-600">Time</th>
-            <th class="w-56 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Effective From</th>
-            <th class="w-56 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Effective To</th>
+            <th class="w-56 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Days</th>
+            <th class="w-32 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Start</th>
+            <th class="w-32 pl-4 py-2 text-left text-sm font-medium text-neutral-600">End</th>
+            <th class="w-32 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Effective From</th>
+            <th class="w-32 pl-4 py-2 text-left text-sm font-medium text-neutral-600">Effective To</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-neutral-200 last:border-b last:border-neutral-200">
@@ -47,17 +49,31 @@
             <% @shifts.each do |shift| %>
               <tr class="relative *:pl-4 *:py-4 *:text-sm">
                 <td>
-                  <%= link_to [@tenant, shift] do %>
+                  <%= link_to [@tenant, shift], data: { turbo_frame: "_top" } do %>
                     <span class="absolute inset-0"></span>
                     <%= shift.name %>
                   <% end %>
                 </td>
-                <td>-</td>
+                <td class="space-y-5">
+                  <%= shift.recurrence_rule %>
+                </td>
+                <td>
+                  <%= shift.start_time.strftime("%H:%M") %>
+                </td>
+                <td class="flex items-center gap-2">
+                  <%= shift.end_time.strftime("%H:%M") %>
+
+                  <% if shift.overnight? %>
+                    <span class="px-1 py-0.5 bg-amber-100 border border-amber-200 text-xs">
+                      +1 day
+                    </span>
+                  <% end %>
+                </td>
                 <td>
                   <%= shift.effective_from %>
                 </td>
                 <td>
-                  <%= shift.effective_to %>
+                  <%= shift.effective_to || "-" %>
                 </td>
               </tr>
             <% end %>
