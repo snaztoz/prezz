@@ -21,4 +21,18 @@ class TenantTest < ActiveSupport::TestCase
       Tenant.create(name: "Test Tenant", time_zone: "Asia/Jakarta")
     end
   end
+
+  test "creating tenants with valid time zones" do
+    ActiveSupport::TimeZone.all.each do |tz|
+      tenant = Tenant.new(name: "Test Tenant", time_zone: tz.tzinfo.identifier)
+
+      assert tenant.valid?
+    end
+  end
+
+  test "creating tenant with invalid time zone" do
+    tenant = Tenant.new(name: "Test Tenant", time_zone: "Asia/Surabaya")
+
+    assert tenant.invalid?
+  end
 end

@@ -10,7 +10,11 @@ class Tenant < ApplicationRecord
   has_many :user_imports, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 60 }
-  validates :time_zone, presence: true, inclusion: { in: %w[Asia/Jakarta] }
+  validates :time_zone,
+    presence: true,
+    inclusion: {
+      in: ActiveSupport::TimeZone.all.map { |tz| tz.tzinfo.identifier }
+    }
 
   after_commit Tenant::CreationCallback.new, on: :create
 
