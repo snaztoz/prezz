@@ -58,10 +58,10 @@
                   <%= shift.recurrence_rule %>
                 </td>
                 <td>
-                  <%= shift.start_time.strftime("%H:%M") %>
+                  <%= l shift.start_time, format: :without_date %>
                 </td>
                 <td class="flex items-center gap-2">
-                  <%= shift.end_time.strftime("%H:%M") %>
+                  <%= l shift.end_time, format: :without_date %>
 
                   <% if shift.overnight? %>
                     <span class="px-1 py-0.5 bg-amber-100 border border-amber-200 text-xs">
@@ -70,10 +70,10 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= shift.effective_from %>
+                  <%= l shift.effective_from %>
                 </td>
                 <td>
-                  <%= shift.effective_to || "-" %>
+                  <%= shift.effective_to.present? ? l(shift.effective_to) : "-" %>
                 </td>
               </tr>
             <% end %>
