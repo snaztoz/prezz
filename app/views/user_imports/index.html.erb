@@ -51,7 +51,7 @@
             <% @user_imports.each do |import| %>
               <tr class="relative *:pl-4 *:py-4 *:text-sm">
                 <td>
-                  <%= link_to [@tenant, import] do %>
+                  <%= link_to [@tenant, import], data: { turbo_frame: "_top" } do %>
                     <span class="absolute inset-0"></span>
                     <%= import.file.filename.to_s %>
                   <% end %>

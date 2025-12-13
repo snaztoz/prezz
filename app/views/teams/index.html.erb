@@ -44,7 +44,7 @@
           <% @teams.each do |team| %>
             <tr class="relative *:pl-4 *:py-4 *:text-sm">
               <td>
-                <%= link_to [@tenant, team] do %>
+                <%= link_to [@tenant, team], data: { turbo_frame: "_top" } do %>
                   <span class="absolute inset-0"></span>
                   <%= team.name %>
                 <% end %>
