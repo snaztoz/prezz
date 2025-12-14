@@ -15,7 +15,7 @@ class UserAndTeamManagements::HeaderComponent < ApplicationComponent
       }),
       Tab.new({
         text: "Teams",
-        url: tenant_teams_url(@tenant),
+        url: teams_url,
         html_class: html_class_for(:teams)
       }),
       Tab.new({

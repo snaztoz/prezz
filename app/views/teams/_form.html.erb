@@ -1,6 +1,6 @@
-<%# locals: (tenant:, team:) %>
+<%# locals: (team:) %>
 
-<%= form_with(model: [tenant, team], class: "py-6 sm:py-8 space-y-6 sm:space-y-8") do |form| %>
+<%= form_with(model: team, class: "py-6 sm:py-8 space-y-6 sm:space-y-8") do |form| %>
   <div class="text-sm">
     <%= form.label :name, "Team Name", class: "text-xs font-semibold uppercase tracking-wide text-neutral-500" %>
     <%= form.text_field :name, class: ["block w-full sm:w-2/3 lg:w-1/2 min-h-9 px-3 py-1.75 mt-2 border shadow-xs", {"border-neutral-300 focus:outline-blue-600": team.errors[:name].none?, "border-red-400 focus:outline-red-600": team.errors[:name].any?}] %>

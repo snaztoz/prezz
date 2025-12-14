@@ -1,1 +1,1 @@
-json.partial! "teams/team", tenant: @tenant, team: @team
+json.partial! "teams/team", team: @team

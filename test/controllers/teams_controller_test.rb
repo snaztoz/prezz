@@ -10,42 +10,32 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get tenant_teams_url(@tenant)
+    get teams_url
+
     assert_response :success
   end
 
   test "should get new" do
-    get new_tenant_team_url(@tenant)
-    assert_response :success
-  end
+    get new_team_url
 
-  test "should not get new for user from another tenant" do
-    sign_in_as users(:one)
-    get new_tenant_team_url(@tenant)
-    assert_response :forbidden
+    assert_response :success
   end
 
   test "should create team" do
     assert_difference("Team.count") do
-      post tenant_teams_url(@tenant), params: { team: { name: "New team" } }
+      post teams_url, params: { team: { name: "New team" } }
     end
 
-    assert_redirected_to tenant_team_url(@tenant, Team.last)
-  end
-
-  test "should not create team for user from another tenant" do
-    sign_in_as users(:one)
-    post tenant_teams_url(@tenant), params: { team: { name: "New team" } }
-    assert_response :forbidden
+    assert_redirected_to team_url(Team.last)
   end
 
   test "should show team" do
-    get tenant_team_url(@tenant, @tenant.teams.first)
+    get team_url(@tenant.teams.first)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_tenant_team_url(@tenant, @tenant.teams.first)
+    get edit_team_url(@tenant.teams.first)
     assert_response :success
   end
 
@@ -54,15 +44,17 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in_as member_user
 
-    get edit_tenant_team_url(@tenant, @tenant.admin_team)
+    get edit_team_url(@tenant.admin_team)
 
     assert_response :forbidden
   end
 
   test "should update team" do
     team =  @tenant.teams.first
-    patch tenant_team_url(@tenant, team), params: { team: { name: team.name } }
-    assert_redirected_to tenant_team_url(@tenant, team)
+
+    patch team_url(team), params: { team: { name: team.name } }
+
+    assert_redirected_to team_url(team)
   end
 
   test "should not update if not a leader of the team" do
@@ -71,7 +63,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in_as member_user
 
-    patch tenant_team_url(@tenant, team), params: { team: { name: team.name } }
+    patch team_url(team), params: { team: { name: team.name } }
 
     assert_response :forbidden
   end
@@ -81,13 +73,13 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
 
     assert_not new_team.archived?
 
-    delete tenant_team_url(@tenant, new_team)
+    delete team_url(new_team)
 
     assert new_team.reload.archived?
   end
 
   test "should not destroy admin team" do
-    delete tenant_team_url(@tenant, @tenant.teams.first)
+    delete team_url(@tenant.teams.first)
 
     assert_response :forbidden
   end
@@ -95,9 +87,9 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   test "should not destroy team for user from another tenant" do
     sign_in_as users(:one)
 
-    delete tenant_team_url(@tenant, @tenant.teams.first)
+    delete team_url(@tenant.teams.first)
 
-    assert_response :forbidden
+    assert_response :not_found
   end
 
   private

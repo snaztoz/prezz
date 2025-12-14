@@ -9,14 +9,14 @@
         <%= render PageReloadingSearchboxComponent.new(
           name: :q,
           text: "Search team",
-          url: tenant_teams_url(@tenant),
+          url: teams_url,
           value: params[:q])
         %>
       </div>
 
       <div class="w-full sm:w-auto">
         <%= link_to(
-          new_tenant_team_url(@tenant),
+          new_team_url,
           class: "flex justify-center items-center gap-2 px-4 py-2 bg-neutral-800
             hover:bg-neutral-900 transition-colors text-center text-sm text-white
             font-medium",
@@ -44,7 +44,7 @@
           <% @teams.each do |team| %>
             <tr class="relative *:pl-4 *:py-4 *:text-sm">
               <td>
-                <%= link_to [@tenant, team], data: { turbo_frame: "_top" } do %>
+                <%= link_to [team], data: { turbo_frame: "_top" } do %>
                   <span class="absolute inset-0"></span>
                   <%= team.name %>
                 <% end %>
