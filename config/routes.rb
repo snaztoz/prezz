@@ -8,10 +8,10 @@ Rails.application.routes.draw do
       resource :session
 
       resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
-
-      # Created via command line or recurring job
-      resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
     end
+
+    # Created via command line or recurring job
+    resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
 
     resources :shifts
 
