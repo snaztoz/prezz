@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     resources :tenants, only: %i[ show edit update ], path: "t" do
       resources :passwords, param: :token
 
-      resource :session
+      resource :session, except: %i[ destroy ]
     end
+
+    resource :session, only: %i[ destroy ]
 
     resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
 

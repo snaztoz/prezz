@@ -33,7 +33,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "destroy" do
     sign_in_as(@user)
 
-    delete tenant_session_path(@tenant)
+    delete session_path
 
     assert_redirected_to new_tenant_session_path(@tenant)
     assert_empty cookies[:session_id]
