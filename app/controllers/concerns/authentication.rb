@@ -39,11 +39,11 @@ module Authentication
 
   def request_authentication
     session[:return_to_after_authenticating] = request.url
-    redirect_to new_tenant_session_path(request_tenant_id)
+    redirect_to new_organization_session_path(request_organization_id)
   end
 
   def after_authentication_url
-    session.delete(:return_to_after_authenticating) || tenant_url(request_tenant_id)
+    session.delete(:return_to_after_authenticating) || organization_url(request_organization_id)
   end
 
   def start_new_session_for(user)
@@ -58,11 +58,11 @@ module Authentication
     cookies.delete(:session_id)
   end
 
-  def request_tenant_id
-    if controller_name == "tenants"
+  def request_organization_id
+    if controller_name == "organizations"
       params.expect(:id)
     else
-      params.expect(:tenant_id)
+      params.expect(:organization_id)
     end
   end
 end

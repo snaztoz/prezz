@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserImport < ApplicationRecord
-  belongs_to :tenant
+  belongs_to :organization
   has_one_attached :file
 
   enum :status, %i[ waiting processing success failed ], validate: true

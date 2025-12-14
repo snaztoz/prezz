@@ -6,7 +6,7 @@ one:
   email_address: one@example.com
   phone_number: 6281234567890
   password_digest: <%= password_digest %>
-  tenant: one
+  organization: one
 
 one_admin_leader:
   full_name: One Admin
@@ -14,7 +14,7 @@ one_admin_leader:
   email_address: one-admin@example.com
   phone_number: 6281234567891
   password_digest: <%= password_digest %>
-  tenant: one
+  organization: one
 
 two:
   full_name: Two
@@ -22,4 +22,4 @@ two:
   email_address: two@example.com
   phone_number: 6281234567890
   password_digest: <%= password_digest %>
-  tenant: two
+  organization: two

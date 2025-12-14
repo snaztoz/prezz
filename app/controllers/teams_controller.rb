@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class TeamsController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_team, only: %i[ show edit update destroy ]
 
   def index
-    @teams = @tenant.teams
+    @teams = @organization.teams
       .left_joins(:memberships)
       .select("teams.*, COUNT(memberships.id) AS members_count")
       .group("teams.id")
@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
   def new
     authorize Team
 
-    @team = @tenant.teams.build
+    @team = @organization.teams.build
   end
 
   def edit
@@ -28,7 +28,7 @@ class TeamsController < ApplicationController
   def create
     authorize Team
 
-    @team = @tenant.teams.build(team_params)
+    @team = @organization.teams.build(team_params)
 
     respond_to do |format|
       if @team.save
@@ -68,12 +68,12 @@ class TeamsController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_team
-    @team = @tenant.teams.find(params.expect(:id))
+    @team = @organization.teams.find(params.expect(:id))
   end
 
   def team_params

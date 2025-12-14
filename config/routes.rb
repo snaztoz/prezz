@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|id/, defaults: { locale: "en" } do
-    resources :tenants, only: %i[ show edit update ], path: "t" do
+    resources :organizations, only: %i[ show edit update ] do
       resources :passwords, param: :token
 
       resource :session, except: %i[ destroy ]

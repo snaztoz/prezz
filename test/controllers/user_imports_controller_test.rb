@@ -24,7 +24,7 @@ class UserImportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should not get index for user from another tenant" do
+  test "should not get index for user from another organization" do
     sign_in_as users(:two)
 
     get user_imports_url
@@ -72,7 +72,7 @@ class UserImportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should not create user_import for user from another tenant" do
+  test "should not create user_import for user from another organization" do
     sign_in_as users(:two)
 
     post user_imports_url, params: {
@@ -98,7 +98,7 @@ class UserImportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should not show for user from another tenant" do
+  test "should not show for user from another organization" do
     sign_in_as users(:two)
 
     get user_import_url(@user_import)

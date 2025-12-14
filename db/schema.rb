@@ -67,11 +67,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.datetime "created_at", null: false
     t.string "location", null: false
     t.integer "shift_occurence_id", null: false
-    t.integer "tenant_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["shift_occurence_id"], name: "index_shift_attendances_on_shift_occurence_id"
-    t.index ["tenant_id"], name: "index_shift_attendances_on_tenant_id"
+    t.index ["organization_id"], name: "index_shift_attendances_on_organization_id"
     t.index ["user_id"], name: "index_shift_attendances_on_user_id"
   end
 
@@ -96,10 +96,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.string "name", null: false
     t.string "recurrence_rule", null: false
     t.time "start_time", null: false
-    t.integer "tenant_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_shifts_on_active", where: "archived_at IS NULL"
-    t.index ["tenant_id"], name: "index_shifts_on_tenant_id"
+    t.index ["organization_id"], name: "index_shifts_on_organization_id"
   end
 
   create_table "team_shifts", force: :cascade do |t|
@@ -117,20 +117,20 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.string "name", null: false
-    t.integer "tenant_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_teams_on_active", where: "archived_at IS NULL"
-    t.index ["tenant_id", "name"], name: "index_teams_on_tenant_id_and_name", unique: true
-    t.index ["tenant_id"], name: "index_teams_on_tenant_id"
+    t.index ["organization_id", "name"], name: "index_teams_on_organization_id_and_name", unique: true
+    t.index ["organization_id"], name: "index_teams_on_organization_id"
   end
 
-  create_table "tenants", force: :cascade do |t|
+  create_table "organizations", force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.string "time_zone", null: false
     t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_tenants_on_active", where: "archived_at IS NULL"
+    t.index ["id"], name: "index_organizations_on_active", where: "archived_at IS NULL"
   end
 
   create_table "user_imports", force: :cascade do |t|
@@ -138,9 +138,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.string "error"
     t.integer "imported_count"
     t.integer "status", null: false
-    t.integer "tenant_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["tenant_id"], name: "index_user_imports_on_tenant_id"
+    t.index ["organization_id"], name: "index_user_imports_on_organization_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -151,13 +151,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.string "full_name", null: false
     t.string "password_digest", null: false
     t.string "phone_number", null: false
-    t.integer "tenant_id", null: false
+    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_users_on_active", where: "archived_at IS NULL"
-    t.index ["tenant_id", "email_address"], name: "index_users_on_tenant_id_and_email_address", unique: true
-    t.index ["tenant_id", "employee_number"], name: "index_users_on_tenant_id_and_employee_number", unique: true
-    t.index ["tenant_id", "phone_number"], name: "index_users_on_tenant_id_and_phone_number", unique: true
-    t.index ["tenant_id"], name: "index_users_on_tenant_id"
+    t.index ["organization_id", "email_address"], name: "index_users_on_organization_id_and_email_address", unique: true
+    t.index ["organization_id", "employee_number"], name: "index_users_on_organization_id_and_employee_number", unique: true
+    t.index ["organization_id", "phone_number"], name: "index_users_on_organization_id_and_phone_number", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -166,13 +166,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "shift_attendances", "shift_occurences"
-  add_foreign_key "shift_attendances", "tenants"
+  add_foreign_key "shift_attendances", "organizations"
   add_foreign_key "shift_attendances", "users"
   add_foreign_key "shift_occurences", "shifts"
-  add_foreign_key "shifts", "tenants"
+  add_foreign_key "shifts", "organizations"
   add_foreign_key "team_shifts", "shifts"
   add_foreign_key "team_shifts", "teams"
-  add_foreign_key "teams", "tenants"
-  add_foreign_key "user_imports", "tenants"
-  add_foreign_key "users", "tenants"
+  add_foreign_key "teams", "organizations"
+  add_foreign_key "user_imports", "organizations"
+  add_foreign_key "users", "organizations"
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Tenant < ApplicationRecord
+class Organization < ApplicationRecord
   include Archivable
 
   has_many :teams, dependent: :destroy
@@ -16,7 +16,7 @@ class Tenant < ApplicationRecord
       in: ActiveSupport::TimeZone.all.map { |tz| tz.tzinfo.identifier }
     }
 
-  after_commit Tenant::CreationCallback.new, on: :create
+  after_commit Organization::CreationCallback.new, on: :create
 
   def admin_team
     teams.find_by name: TeamConstant::ADMIN_TEAM_NAME

@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 class ShiftAttendancesController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_shift_attendance, only: %i[ show update ]
 
   def index
-    @shift_attendances = @tenant.shift_attendances.all
+    @shift_attendances = @organization.shift_attendances.all
   end
 
   def show
   end
 
   def new
-    @shift_attendance = @tenant.shift_attendances.build(user: current_user)
+    @shift_attendance = @organization.shift_attendances.build(user: current_user)
   end
 
   def create
-    @shift_attendance = @tenant.shift_attendances.build(shift_attendance_creation_params.merge(user: current_user, clock_in_at: Time.now))
+    @shift_attendance = @organization.shift_attendances.build(shift_attendance_creation_params.merge(user: current_user, clock_in_at: Time.now))
 
     respond_to do |format|
       if @shift_attendance.save
@@ -45,12 +45,12 @@ class ShiftAttendancesController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_shift_attendance
-    @shift_attendance = @tenant.shift_attendances.find(params.expect(:id))
+    @shift_attendance = @organization.shift_attendances.find(params.expect(:id))
   end
 
   def shift_attendance_creation_params

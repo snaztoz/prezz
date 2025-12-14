@@ -1,14 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tenant: one
+  organization: one
   user: one
   shift_occurence: one
   clock_in_at: 2025-11-25 21:24:26
   location: MyString
 
 two:
-  tenant: two
+  organization: two
   user: two
   shift_occurence: two
   clock_in_at: 2025-11-25 21:24:26

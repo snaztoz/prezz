@@ -27,13 +27,13 @@ class UserImport::Processing
 
   def create_users
     user_import.csv.each do |row|
-      tenant = user_import.tenant
+      organization = user_import.organization
       attributes = UserImport::Row.new(row).attributes
 
-      user_values = attributes.except(:team).merge({ tenant: })
+      user_values = attributes.except(:team).merge({ organization: })
       user = User.create!(user_values)
 
-      team = Team.find_by!(tenant:, name: attributes[:team])
+      team = Team.find_by!(organization:, name: attributes[:team])
       team.memberships.create!(user:, role: "member")
     end
   end

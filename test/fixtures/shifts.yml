@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tenant: one
+  organization: one
   name: Main Shift
   start_time: "08:00"
   end_time: "17:00"
@@ -9,7 +9,7 @@ one:
   effective_from: 2025-11-12
 
 two:
-  tenant: two
+  organization: two
   name: Main Shift
   start_time: "09:00"
   end_time: "18:00"

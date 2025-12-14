@@ -5,7 +5,7 @@ class CreateUserImports < ActiveRecord::Migration[8.1]
       t.integer :imported_count
       t.string :error
 
-      t.references :tenant, null: false, foreign_key: true
+      t.references :organization, null: false, foreign_key: true
 
       t.timestamps
     end

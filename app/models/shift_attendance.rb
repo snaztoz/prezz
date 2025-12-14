@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShiftAttendance < ApplicationRecord
-  belongs_to :tenant
+  belongs_to :organization
   belongs_to :user
   belongs_to :shift_occurence
 

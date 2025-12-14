@@ -58,7 +58,7 @@
                 </td>
                 <td><%= import.status %></td>
                 <td><%= import.imported_count || 0 %></td>
-                <td><%= l import.created_at.in_time_zone(@tenant.time_zone) %></td>
+                <td><%= l import.created_at.in_time_zone(@organization.time_zone) %></td>
               </tr>
             <% end %>
           <% else %>

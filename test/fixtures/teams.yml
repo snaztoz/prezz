@@ -2,12 +2,12 @@
 
 one:
   name: Team One
-  tenant: one
+  organization: one
 
 one_admins:
   name: admins
-  tenant: one
+  organization: one
 
 two:
   name: Team Two
-  tenant: two
+  organization: two

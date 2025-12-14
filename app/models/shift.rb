@@ -3,7 +3,7 @@
 class Shift < ApplicationRecord
   include Archivable
 
-  belongs_to :tenant
+  belongs_to :organization
   has_many :team_shifts, dependent: :destroy
   has_many :teams, through: :team_shifts
   has_many :occurences, class_name: "ShiftOccurence", dependent: :destroy
@@ -15,7 +15,7 @@ class Shift < ApplicationRecord
   validates :effective_from, presence: true
   validates :effective_to, comparison: { greater_than: :effective_from }, allow_nil: true
 
-  delegate :time_zone, to: :tenant
+  delegate :time_zone, to: :organization
 
   after_commit Shift::SavingCallback.new, on: %i[ create update ]
 

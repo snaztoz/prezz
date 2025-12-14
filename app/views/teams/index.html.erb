@@ -51,7 +51,7 @@
               </td>
               <td><%= team.members_count %></td>
               <td>-</td>
-              <td><%= l team.created_at.in_time_zone(@tenant.time_zone) %></td>
+              <td><%= l team.created_at.in_time_zone(@organization.time_zone) %></td>
             </tr>
           <% end %>
         </tbody>

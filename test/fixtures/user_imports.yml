@@ -1,19 +1,19 @@
 one:
   status: 1
-  tenant: one
+  organization: one
 
 one_with_incorrect_header:
   status: 1
-  tenant: one
+  organization: one
 
 one_with_missing_column:
   status: 1
-  tenant: one
+  organization: one
 
 one_with_non_existing_team:
   status: 1
-  tenant: one
+  organization: one
 
 two:
   status: 1
-  tenant: two
+  organization: two

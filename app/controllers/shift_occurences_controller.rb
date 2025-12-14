@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ShiftOccurencesController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_shift_occurence, only: %i[ show destroy ]
 
   def index
     @shift_occurences = ShiftOccurence
-      .joins(shift: :tenant)
-      .where(shift: { tenant: @tenant })
+      .joins(shift: :organization)
+      .where(shift: { organization: @organization })
   end
 
   def show
@@ -26,14 +26,14 @@ class ShiftOccurencesController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_shift_occurence
     @shift_occurence = ShiftOccurence
-      .joins(shift: :tenant)
-      .where(shift: { tenant: @tenant })
+      .joins(shift: :organization)
+      .where(shift: { organization: @organization })
       .find(params.expect(:id))
   end
 end

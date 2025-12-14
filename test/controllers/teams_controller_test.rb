@@ -4,9 +4,9 @@ require "test_helper"
 
 class TeamsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tenant = Tenant.create!(name: "Test Tenant", time_zone: "Asia/Jakarta")
+    @organization = Organization.create!(name: "Test Organization", time_zone: "Asia/Jakarta")
 
-    sign_in_as @tenant.users.first
+    sign_in_as @organization.users.first
   end
 
   test "should get index" do
@@ -30,27 +30,27 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show team" do
-    get team_url(@tenant.teams.first)
+    get team_url(@organization.teams.first)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_team_url(@tenant.teams.first)
+    get edit_team_url(@organization.teams.first)
     assert_response :success
   end
 
   test "should not get edit if not a leader of the team" do
-    member_user = create_team_member(@tenant.admin_team)
+    member_user = create_team_member(@organization.admin_team)
 
     sign_in_as member_user
 
-    get edit_team_url(@tenant.admin_team)
+    get edit_team_url(@organization.admin_team)
 
     assert_response :forbidden
   end
 
   test "should update team" do
-    team =  @tenant.teams.first
+    team =  @organization.teams.first
 
     patch team_url(team), params: { team: { name: team.name } }
 
@@ -58,7 +58,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update if not a leader of the team" do
-    team = @tenant.admin_team
+    team = @organization.admin_team
     member_user = create_team_member(team)
 
     sign_in_as member_user
@@ -69,7 +69,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy non-admin team" do
-    new_team = @tenant.teams.create!(name: "Non-Admin Team")
+    new_team = @organization.teams.create!(name: "Non-Admin Team")
 
     assert_not new_team.archived?
 
@@ -79,15 +79,15 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not destroy admin team" do
-    delete team_url(@tenant.teams.first)
+    delete team_url(@organization.teams.first)
 
     assert_response :forbidden
   end
 
-  test "should not destroy team for user from another tenant" do
+  test "should not destroy team for user from another organization" do
     sign_in_as users(:one)
 
-    delete team_url(@tenant.teams.first)
+    delete team_url(@organization.teams.first)
 
     assert_response :not_found
   end
@@ -103,7 +103,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def create_member_user
-    @tenant.users.create! do |u|
+    @organization.users.create! do |u|
       u.full_name = "member"
       u.employee_number = "member"
       u.email_address = "member@email.com"

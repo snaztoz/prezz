@@ -4,29 +4,29 @@ require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tenant = tenants(:one)
+    @organization = organizations(:one)
     @user = users(:one)
   end
 
   test "new" do
-    get new_tenant_session_path(@tenant)
+    get new_organization_session_path(@organization)
     assert_response :success
   end
 
   test "create with valid credentials" do
-    post tenant_session_path(@tenant), params: {
+    post organization_session_path(@organization), params: {
       email_address: @user.email_address,
       password: "password"
     }
 
-    assert_redirected_to tenant_path(@tenant)
+    assert_redirected_to organization_path(@organization)
     assert cookies[:session_id]
   end
 
   test "create with invalid credentials" do
-    post tenant_session_path(@tenant), params: { email_address: @user.email_address, password: "wrong" }
+    post organization_session_path(@organization), params: { email_address: @user.email_address, password: "wrong" }
 
-    assert_redirected_to new_tenant_session_path(@tenant)
+    assert_redirected_to new_organization_session_path(@organization)
     assert_nil cookies[:session_id]
   end
 
@@ -35,7 +35,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     delete session_path
 
-    assert_redirected_to new_tenant_session_path(@tenant)
+    assert_redirected_to new_organization_session_path(@organization)
     assert_empty cookies[:session_id]
   end
 end

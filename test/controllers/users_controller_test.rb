@@ -4,7 +4,7 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tenant = tenants(:one)
+    @organization = organizations(:one)
 
     sign_in_as users(:one_admin_leader)
   end

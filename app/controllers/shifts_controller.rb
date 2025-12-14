@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ShiftsController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_shift, only: %i[ show edit update destroy ]
 
   def index
     authorize Shift
 
-    @shifts = @tenant.shifts.order(created_at: :desc)
+    @shifts = @organization.shifts.order(created_at: :desc)
   end
 
   def show
@@ -17,7 +17,7 @@ class ShiftsController < ApplicationController
   def new
     authorize Shift
 
-    @shift = @tenant.shifts.build
+    @shift = @organization.shifts.build
   end
 
   def edit
@@ -27,7 +27,7 @@ class ShiftsController < ApplicationController
   def create
     authorize Shift
 
-    @shift = @tenant.shifts.build(shift_params)
+    @shift = @organization.shifts.build(shift_params)
 
     respond_to do |format|
       if @shift.save
@@ -67,12 +67,12 @@ class ShiftsController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_shift
-    @shift = @tenant.shifts.find(params.expect(:id))
+    @shift = @organization.shifts.find(params.expect(:id))
   end
 
   def shift_params

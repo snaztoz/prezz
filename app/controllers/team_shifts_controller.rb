@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class TeamShiftsController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_team_shift, only: %i[ show edit update destroy ]
 
   def index
     authorize TeamShift
 
     @team_shifts = TeamShift
-      .joins(team: :tenant)
-      .where(team: { tenant: @tenant })
+      .joins(team: :organization)
+      .where(team: { organization: @organization })
   end
 
   def show
@@ -69,14 +69,14 @@ class TeamShiftsController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_team_shift
     @team_shift = TeamShift
-      .joins(team: :tenant)
-      .where(team: { tenant: @tenant })
+      .joins(team: :organization)
+      .where(team: { organization: @organization })
       .find(params.expect(:id))
   end
 

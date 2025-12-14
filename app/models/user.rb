@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  belongs_to :tenant
+  belongs_to :organization
   has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_many :shift_attendances, dependent: :destroy
@@ -22,15 +22,15 @@ class User < ApplicationRecord
     length: { maximum: 256 }
   validates :employee_number,
     presence: true,
-    uniqueness: { scope: :tenant },
+    uniqueness: { scope: :organization },
     length: { maximum: 15 }
   validates :email_address,
     presence: true,
-    uniqueness: { scope: :tenant },
+    uniqueness: { scope: :organization },
     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :phone_number,
     presence: true,
-    uniqueness: { scope: :tenant },
+    uniqueness: { scope: :organization },
     length: { maximum: 15 }
 
   scope :where_role, ->(role) {

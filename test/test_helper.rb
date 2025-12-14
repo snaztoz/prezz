@@ -11,8 +11,8 @@ module ActiveSupport
 
     fixtures :all
 
-    def sign_in_as(user, tenant)
-      post tenant_session_url(tenant), params: {
+    def sign_in_as(user, organization)
+      post organization_session_url(organization), params: {
         email_address: user.email_address,
         password: user.password
       }

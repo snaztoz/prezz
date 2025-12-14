@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class UserImportsController < ApplicationController
-  before_action :set_tenant
+  before_action :set_organization
   before_action :set_user_import, only: %i[ show ]
 
   def index
     authorize UserImport
 
-    @user_imports = @tenant
+    @user_imports = @organization
       .user_imports
       .includes(:file_attachment)
       .where_status(params[:status])
@@ -21,13 +21,13 @@ class UserImportsController < ApplicationController
   def new
     authorize UserImport
 
-    @user_import = @tenant.user_imports.build
+    @user_import = @organization.user_imports.build
   end
 
   def create
     authorize UserImport
 
-    @user_import = @tenant
+    @user_import = @organization
       .user_imports
       .build(user_import_params.merge({ status: "waiting" }))
 
@@ -44,12 +44,12 @@ class UserImportsController < ApplicationController
 
   private
 
-  def set_tenant
-    @tenant = Tenant.find(current_user.tenant_id)
+  def set_organization
+    @organization = Organization.find(current_user.organization_id)
   end
 
   def set_user_import
-    @user_import = @tenant
+    @user_import = @organization
       .user_imports
       .find(params.expect(:id))
   end
