@@ -1,6 +1,6 @@
-<%# locals: (tenant:, team_shift:) %>
+<%# locals: (team_shift:) %>
 
-<%= form_with(model: [tenant, team_shift], class: "contents") do |form| %>
+<%= form_with(model: team_shift, class: "contents") do |form| %>
   <% if team_shift.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(team_shift.errors.count, "error") %> prohibited this team_shift from being saved:</h2>

@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|id/, defaults: { locale: "en" } do
     resources :tenants, only: %i[ show edit update ], path: "t" do
-      resources :team_shifts, path: "team-shifts"
-
       resources :teams
 
       resources :passwords, param: :token
@@ -22,6 +20,8 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[ index ]
     end
+
+    resources :team_shifts, path: "team-shifts"
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
