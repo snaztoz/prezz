@@ -52,6 +52,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.string "time_zone", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_organizations_on_active", where: "archived_at IS NULL"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -66,12 +75,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.datetime "clock_out_at"
     t.datetime "created_at", null: false
     t.string "location", null: false
-    t.integer "shift_occurence_id", null: false
     t.integer "organization_id", null: false
+    t.integer "shift_occurence_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.index ["shift_occurence_id"], name: "index_shift_attendances_on_shift_occurence_id"
     t.index ["organization_id"], name: "index_shift_attendances_on_organization_id"
+    t.index ["shift_occurence_id"], name: "index_shift_attendances_on_shift_occurence_id"
     t.index ["user_id"], name: "index_shift_attendances_on_user_id"
   end
 
@@ -94,9 +103,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.date "effective_to"
     t.time "end_time", null: false
     t.string "name", null: false
+    t.integer "organization_id", null: false
     t.string "recurrence_rule", null: false
     t.time "start_time", null: false
-    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_shifts_on_active", where: "archived_at IS NULL"
     t.index ["organization_id"], name: "index_shifts_on_organization_id"
@@ -124,21 +133,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.index ["organization_id"], name: "index_teams_on_organization_id"
   end
 
-  create_table "organizations", force: :cascade do |t|
-    t.datetime "archived_at"
-    t.datetime "created_at", null: false
-    t.string "name", null: false
-    t.string "time_zone", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_organizations_on_active", where: "archived_at IS NULL"
-  end
-
   create_table "user_imports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "error"
     t.integer "imported_count"
-    t.integer "status", null: false
     t.integer "organization_id", null: false
+    t.integer "status", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_user_imports_on_organization_id"
   end
@@ -149,9 +149,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
     t.string "email_address", null: false
     t.string "employee_number", null: false
     t.string "full_name", null: false
+    t.integer "organization_id", null: false
     t.string "password_digest", null: false
     t.string "phone_number", null: false
-    t.integer "organization_id", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_users_on_active", where: "archived_at IS NULL"
     t.index ["organization_id", "email_address"], name: "index_users_on_organization_id_and_email_address", unique: true
@@ -165,8 +165,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_25_142426) do
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
   add_foreign_key "sessions", "users"
-  add_foreign_key "shift_attendances", "shift_occurences"
   add_foreign_key "shift_attendances", "organizations"
+  add_foreign_key "shift_attendances", "shift_occurences"
   add_foreign_key "shift_attendances", "users"
   add_foreign_key "shift_occurences", "shifts"
   add_foreign_key "shifts", "organizations"
