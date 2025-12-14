@@ -15,13 +15,13 @@ Rails.application.routes.draw do
       resources :shifts
 
       resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
-
-      resources :users, only: %i[ index ]
     end
 
     resources :team_shifts, path: "team-shifts"
 
     resources :teams
+
+    resources :users, only: %i[ index ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :set_tenant
 
   def index
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize User
 
     @users = @tenant
@@ -17,6 +16,6 @@ class UsersController < ApplicationController
   private
 
   def set_tenant
-    @tenant = Tenant.find(params.expect(:tenant_id))
+    @tenant = Tenant.find(current_user.tenant_id)
   end
 end

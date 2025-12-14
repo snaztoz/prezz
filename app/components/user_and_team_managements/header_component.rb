@@ -10,7 +10,7 @@ class UserAndTeamManagements::HeaderComponent < ApplicationComponent
     [
       Tab.new({
         text: "Users",
-        url: tenant_users_url(@tenant),
+        url: users_url,
         html_class: html_class_for(:users)
       }),
       Tab.new({

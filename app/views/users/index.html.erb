@@ -8,7 +8,7 @@
       <div class="w-full sm:w-32">
         <%= render PageReloadingSelectComponent.new(
           name: :role,
-          url: tenant_users_url(@tenant),
+          url: users_url,
           options: [
             ["All Role", "all"],
             ["Member", "member"],
@@ -22,7 +22,7 @@
         <%= render PageReloadingSearchboxComponent.new(
           name: :q,
           text: "Search user",
-          url: tenant_users_url(@tenant),
+          url: users_url,
           value: params[:q])
         %>
       </div>
