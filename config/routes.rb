@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  scope "(:locale)", locale: /en|id/, defaults: { locale: "en" } do
+  scope "/:locale", locale: /en|id/, defaults: { locale: "en" } do
     resources :organizations, only: %i[ show edit update ] do
       resources :passwords, param: :token
 
