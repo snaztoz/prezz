@@ -5,7 +5,6 @@ class UserImportsController < ApplicationController
   before_action :set_user_import, only: %i[ show ]
 
   def index
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
     @user_imports = @tenant
@@ -16,19 +15,16 @@ class UserImportsController < ApplicationController
   end
 
   def show
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @user_import
   end
 
   def new
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
     @user_import = @tenant.user_imports.build
   end
 
   def create
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize UserImport
 
     @user_import = @tenant
@@ -37,7 +33,7 @@ class UserImportsController < ApplicationController
 
     respond_to do |format|
       if @user_import.save
-        format.html { redirect_to [ @tenant, @user_import ], notice: "User import was successfully created." }
+        format.html { redirect_to @user_import, notice: "User import was successfully created." }
         format.json { render :show, status: :created, location: @user_import }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +45,7 @@ class UserImportsController < ApplicationController
   private
 
   def set_tenant
-    @tenant = Tenant.find(params.expect(:tenant_id))
+    @tenant = Tenant.find(current_user.tenant_id)
   end
 
   def set_user_import

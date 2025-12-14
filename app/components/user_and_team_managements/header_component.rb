@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class UserAndTeamManagements::HeaderComponent < ApplicationComponent
-  def initialize(tenant, active_tab:)
-    @tenant = tenant
+  def initialize(active_tab:)
     @active_tab = active_tab
   end
 
@@ -20,7 +19,7 @@ class UserAndTeamManagements::HeaderComponent < ApplicationComponent
       }),
       Tab.new({
         text: "Imports",
-        url: tenant_user_imports_url(@tenant),
+        url: user_imports_url,
         html_class: html_class_for(:user_imports)
       })
     ]

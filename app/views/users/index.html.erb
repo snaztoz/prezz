@@ -1,7 +1,7 @@
 <% content_for :title, "Users" %>
 
 <div class="w-full space-y-6">
-  <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :users) %>
+  <%= render UserAndTeamManagements::HeaderComponent.new(active_tab: :users) %>
 
   <%= turbo_frame_tag "users-frame", class: "space-y-6", data: { turbo_action: "advance" } do %>
     <nav class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">

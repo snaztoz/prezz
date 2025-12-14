@@ -1,14 +1,14 @@
 <% content_for :title, "User Imports" %>
 
 <div class="w-full space-y-6">
-  <%= render UserAndTeamManagements::HeaderComponent.new(@tenant, active_tab: :user_imports) %>
+  <%= render UserAndTeamManagements::HeaderComponent.new(active_tab: :user_imports) %>
 
   <%= turbo_frame_tag "user-imports-frame", class: "space-y-6", data: { turbo_action: "advance" } do %>
     <nav class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
       <div class="w-full sm:w-32">
         <%= render PageReloadingSelectComponent.new(
           name: :status,
-          url: tenant_user_imports_url(@tenant),
+          url: user_imports_url,
           options: [
             ["All Statuses", "all"],
             ["Waiting", "waiting"],
@@ -22,7 +22,7 @@
 
       <div class="w-full sm:w-auto">
         <%= link_to(
-          new_tenant_user_import_url(@tenant),
+          new_user_import_url,
           class: "flex justify-center items-center gap-2 px-4 py-2 bg-neutral-800
             hover:bg-neutral-900 transition-colors text-center text-sm text-white
             font-medium",
@@ -51,7 +51,7 @@
             <% @user_imports.each do |import| %>
               <tr class="relative *:pl-4 *:py-4 *:text-sm">
                 <td>
-                  <%= link_to [@tenant, import], data: { turbo_frame: "_top" } do %>
+                  <%= link_to import, data: { turbo_frame: "_top" } do %>
                     <span class="absolute inset-0"></span>
                     <%= import.file.filename.to_s %>
                   <% end %>

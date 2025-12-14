@@ -13,13 +13,13 @@ Rails.application.routes.draw do
       resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
 
       resources :shifts
-
-      resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
     end
 
     resources :team_shifts, path: "team-shifts"
 
     resources :teams
+
+    resources :user_imports, except: %i[ edit update destroy ], path: "user-imports"
 
     resources :users, only: %i[ index ]
   end
