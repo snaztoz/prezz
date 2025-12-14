@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
       # Created via command line or recurring job
       resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"
-
-      resources :shifts
     end
+
+    resources :shifts
 
     resources :team_shifts, path: "team-shifts"
 

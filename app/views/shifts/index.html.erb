@@ -11,14 +11,14 @@
         <%= render PageReloadingSearchboxComponent.new(
           name: :q,
           text: "Search shift",
-          url: tenant_shifts_url(@tenant),
+          url: shifts_url,
           value: params[:q])
         %>
       </div>
 
       <div class="w-full sm:w-auto">
         <%= link_to(
-          new_tenant_shift_url(@tenant),
+          new_shift_url,
           class: "flex justify-center items-center gap-2 px-4 py-2 bg-neutral-800
             hover:bg-neutral-900 transition-colors text-center text-sm text-white
             font-medium",
@@ -49,7 +49,7 @@
             <% @shifts.each do |shift| %>
               <tr class="relative *:pl-4 *:py-4 *:text-sm">
                 <td>
-                  <%= link_to [@tenant, shift], data: { turbo_frame: "_top" } do %>
+                  <%= link_to shift, data: { turbo_frame: "_top" } do %>
                     <span class="absolute inset-0"></span>
                     <%= shift.name %>
                   <% end %>

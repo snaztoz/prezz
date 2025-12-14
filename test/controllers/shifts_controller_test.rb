@@ -4,14 +4,13 @@ require "test_helper"
 
 class ShiftsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tenant = tenants(:one)
     @shift = shifts(:one)
 
     sign_in_as users(:one_admin_leader)
   end
 
   test "should get index" do
-    get tenant_shifts_url(@tenant)
+    get shifts_url
 
     assert_response :success
   end
@@ -19,13 +18,13 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   test "should not get index for non-admin users" do
     sign_in_as users(:one)
 
-    get tenant_shifts_url(@tenant)
+    get shifts_url
 
     assert_response :forbidden
   end
 
   test "should get new" do
-    get new_tenant_shift_url(@tenant)
+    get new_shift_url
 
     assert_response :success
   end
@@ -33,14 +32,14 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   test "should not get new for non-admin users" do
     sign_in_as users(:one)
 
-    get new_tenant_shift_url(@tenant)
+    get new_shift_url
 
     assert_response :forbidden
   end
 
   test "should create shift" do
     assert_difference("Shift.count") do
-      post tenant_shifts_url(@tenant), params: {
+      post shifts_url, params: {
         shift: {
           effective_from: @shift.effective_from,
           effective_to: @shift.effective_to,
@@ -52,13 +51,13 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to tenant_shift_url(@tenant, Shift.last)
+    assert_redirected_to shift_url(Shift.last)
   end
 
   test "should not create shift for non-admin users" do
     sign_in_as users(:one)
 
-    post tenant_shifts_url(@tenant), params: {
+    post shifts_url, params: {
       shift: {
         effective_from: @shift.effective_from,
         effective_to: @shift.effective_to,
@@ -73,7 +72,7 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show shift" do
-    get tenant_shift_url(@tenant, @shift)
+    get shift_url(@shift)
 
     assert_response :success
   end
@@ -81,13 +80,13 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   test "should not show for non-admin users" do
     sign_in_as users(:one)
 
-    get tenant_shift_url(@tenant, @shift)
+    get shift_url(@shift)
 
     assert_response :forbidden
   end
 
   test "should get edit" do
-    get edit_tenant_shift_url(@tenant, @shift)
+    get edit_shift_url(@shift)
 
     assert_response :success
   end
@@ -95,13 +94,13 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   test "should not get edit for non-admin users" do
     sign_in_as users(:one)
 
-    get edit_tenant_shift_url(@tenant, @shift)
+    get edit_shift_url(@shift)
 
     assert_response :forbidden
   end
 
   test "should update shift" do
-    patch tenant_shift_url(@tenant, @shift), params: {
+    patch shift_url(@shift), params: {
       shift: {
         effective_from: @shift.effective_from,
         effective_to: @shift.effective_to,
@@ -112,13 +111,13 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to tenant_shift_url(@tenant, @shift)
+    assert_redirected_to shift_url(@shift)
   end
 
   test "should not update shift for non-admin users" do
     sign_in_as users(:one)
 
-    patch tenant_shift_url(@tenant, @shift), params: {
+    patch shift_url(@shift), params: {
       shift: {
         effective_from: @shift.effective_from,
         effective_to: @shift.effective_to,
@@ -133,16 +132,16 @@ class ShiftsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy shift" do
-    delete tenant_shift_url(@tenant, @shift)
+    delete shift_url(@shift)
 
-    assert_redirected_to tenant_shifts_url(@tenant)
+    assert_redirected_to shifts_url
     assert @shift.reload.archived?
   end
 
   test "should not destroy shift for non-admin users" do
     sign_in_as users(:one)
 
-    delete tenant_shift_url(@tenant, @shift)
+    delete shift_url(@shift)
 
     assert_response :forbidden
   end

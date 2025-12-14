@@ -5,38 +5,33 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: %i[ show edit update destroy ]
 
   def index
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize Shift
 
     @shifts = @tenant.shifts.order(created_at: :desc)
   end
 
   def show
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @shift
   end
 
   def new
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize Shift
 
     @shift = @tenant.shifts.build
   end
 
   def edit
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @shift
   end
 
   def create
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize Shift
 
     @shift = @tenant.shifts.build(shift_params)
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to [ @tenant, @shift ], notice: "Shift was successfully created." }
+        format.html { redirect_to @shift, notice: "Shift was successfully created." }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,12 +41,11 @@ class ShiftsController < ApplicationController
   end
 
   def update
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @shift
 
     respond_to do |format|
       if @shift.update(shift_params)
-        format.html { redirect_to [ @tenant, @shift ], notice: "Shift was successfully updated.", status: :see_other }
+        format.html { redirect_to @shift, notice: "Shift was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @shift }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,13 +55,12 @@ class ShiftsController < ApplicationController
   end
 
   def destroy
-    authorize @tenant, :access?, policy_class: TenantPolicy
     authorize @shift
 
     @shift.archive
 
     respond_to do |format|
-      format.html { redirect_to tenant_shifts_path(@tenant), notice: "Shift was successfully destroyed.", status: :see_other }
+      format.html { redirect_to shifts_path, notice: "Shift was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -75,7 +68,7 @@ class ShiftsController < ApplicationController
   private
 
   def set_tenant
-    @tenant = Tenant.find(params.expect(:tenant_id))
+    @tenant = Tenant.find(current_user.tenant_id)
   end
 
   def set_shift
