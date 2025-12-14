@@ -20,8 +20,8 @@ class ShiftAttendancesController < ApplicationController
 
     respond_to do |format|
       if @shift_attendance.save
-        format.html { redirect_to [ @tenant, @shift_attendance ], notice: "Shift attendance was successfully created." }
-        format.json { render :show, status: :created, location: [ @tenant, @shift_attendance ] }
+        format.html { redirect_to @shift_attendance, notice: "Shift attendance was successfully created." }
+        format.json { render :show, status: :created, location: @shift_attendance }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @shift_attendance.errors, status: :unprocessable_entity }
@@ -34,8 +34,8 @@ class ShiftAttendancesController < ApplicationController
 
     respond_to do |format|
       if clock_out && @shift_attendance.update(clock_out_at: Time.now)
-        format.html { redirect_to [ @tenant, @shift_attendance ], notice: "Shift attendance was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: [ @tenant, @shift_attendance ] }
+        format.html { redirect_to @shift_attendance, notice: "Shift attendance was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @shift_attendance }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @shift_attendance.errors, status: :unprocessable_entity }
@@ -46,7 +46,7 @@ class ShiftAttendancesController < ApplicationController
   private
 
   def set_tenant
-    @tenant = Tenant.find(params.expect(:tenant_id))
+    @tenant = Tenant.find(current_user.tenant_id)
   end
 
   def set_shift_attendance

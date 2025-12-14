@@ -6,9 +6,9 @@ Rails.application.routes.draw do
       resources :passwords, param: :token
 
       resource :session
-
-      resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
     end
+
+    resources :shift_attendances, except: %i[ edit destroy ], path: "shift-attendances"
 
     # Created via command line or recurring job
     resources :shift_occurences, only: %i[ index show destroy ], path: "shift-occurences"

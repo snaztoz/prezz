@@ -1,6 +1,6 @@
-<%# locals: (tenant:, shift_attendance:) %>
+<%# locals: (shift_attendance:) %>
 
-<%= form_with(model: [tenant, shift_attendance], class: "contents") do |form| %>
+<%= form_with(model: shift_attendance, class: "contents") do |form| %>
   <% if shift_attendance.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(shift_attendance.errors.count, "error") %> prohibited this shift_attendance from being saved:</h2>
