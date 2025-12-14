@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+echo "Running app tests..."
+bin/rails t
+
+echo "\nChecking Ruby code..."
+bin/rubocop
+
+echo "\nChecking for code vulnerabilities..."
+bin/brakeman --no-pager
